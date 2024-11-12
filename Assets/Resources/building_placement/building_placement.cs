@@ -26,7 +26,7 @@ public class building_placement : MonoBehaviour
 
     private List<GameObject> HexRings=new();//标记坐标占用情况
 
-    private List<GameObject> Buildings=new();//记录所有建筑
+    public List<GameObject> Buildings=new();//记录所有建筑
 
     // Start is called before the first frame update
     void Awake()
@@ -113,7 +113,7 @@ public class building_placement : MonoBehaviour
                     }
                 }
                 
-                tmpobj=Instantiate(landprefabs[land_index],new Vector3(tmp_x,-0.89f,tmp_z)+landprefabs[land_index].transform.position,landprefabs[land_index].transform.rotation);
+                tmpobj=Instantiate(landprefabs[land_index],new Vector3(tmp_x,-0.9f,tmp_z)+landprefabs[land_index].transform.position,landprefabs[land_index].transform.rotation);
                 tmpobj.transform.parent=transform;
                 
             }
@@ -171,7 +171,6 @@ public class building_placement : MonoBehaviour
     }
     public GameObject Place_New_Building(GameObject new_building,Vector3 place,Quaternion rotation)
     {
-
         GameObject tmpobj=Instantiate(new_building,place,rotation);
         tmpobj.transform.parent=transform;
         positionList[new Vector2(place.x, place.z)]=false;

@@ -38,11 +38,14 @@ public class Resource_building_Card : Card
 public class ATK_building_Card : Card
 {
     public int ATK;
+
+    public float ATK_range;
     public int cycle;
     public ATK_building_Card(int _id,string _cardCode,string _cardName,int _HP,int _gold,int _level,
-                    int _ATK,int _cycle):base(_id,_cardCode,_cardName,_HP,_gold,_level)
+                    int _ATK,int _cycle, float _ATK_range):base(_id,_cardCode,_cardName,_HP,_gold,_level)
     {
         this.ATK=_ATK;
         this.cycle=_cycle;
+        this.ATK_range=_ATK_range;
     }
 }

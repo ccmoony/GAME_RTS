@@ -19,11 +19,6 @@ public class Resource_Building_Behavior : MonoBehaviour
             currency_Manager.Change_money(card_info.output_gold);
         }
     }
-    public void Start()
-    {
-        currency_Manager=GameObject.Find("Cardbox").GetComponent<Currency_Manager>();
-        StartCoroutine(GenerateCurrency());
-    }
 
 
 }

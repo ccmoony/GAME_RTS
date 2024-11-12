@@ -1,4 +1,4 @@
-﻿#,id,cardCode,cardName,maximum_HP,cost_gold,level,output_gold,cycle
-Resource_building_Card,1,House,民房,100,2,0,1,5
-#,id,cardCode,cardName,maximum_HP,cost_gold,level,ATK,cycle
-ATK_building_Card,2,Tower,箭塔,500,5,0,10,1
+#,id,cardCode,cardName,maximum_HP,cost_gold,level,output_gold,cycle,
+Resource_building_Card,1,House,民房,100,2,0,1,5,
+#,id,cardCode,cardName,maximum_HP,cost_gold,level,ATK,cycle,ATK_range
+ATK_building_Card,2,Tower,箭塔,500,5,0,10,1,15.1

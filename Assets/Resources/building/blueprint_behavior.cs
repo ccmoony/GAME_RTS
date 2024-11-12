@@ -93,6 +93,12 @@ public class blueprint_behavior : MonoBehaviour
                             building_behavior.card_info=card_Button.card_info as Resource_building_Card;
 
                         }
+                        else if (card_Button.card_info is ATK_building_Card)
+                        {
+                            var building_behavior=instance_real_building.GetComponent<ATK_Building_Behavior>();
+
+                            building_behavior.card_info=card_Button.card_info as ATK_building_Card;
+                        }
                         else
                         {
                         }

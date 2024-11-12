@@ -51,6 +51,7 @@ public class Card_manager : MonoBehaviour
         int output_gold;
         int ATK;
         int cycle;
+        float ATK_range;
 
         foreach (var row in dataRow)
         {
@@ -100,9 +101,10 @@ public class Card_manager : MonoBehaviour
                 level=int.Parse(rowArray[6]);
                 ATK=int.Parse(rowArray[7]);
                 cycle=int.Parse(rowArray[8]);
+                ATK_range=float.Parse(rowArray[9]);
                 
                 ATK_building_Card aTK_Building_Card=
-                new(id,cardCode,cardName,maximum_HP,cost_gold,level,ATK,cycle);
+                new(id,cardCode,cardName,maximum_HP,cost_gold,level,ATK,cycle,ATK_range);
                 switch (level)
                 {
                     case 0:
