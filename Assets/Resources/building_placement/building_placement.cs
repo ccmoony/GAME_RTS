@@ -267,5 +267,18 @@ public class building_placement : MonoBehaviour
         return tmpobj;
     }
 
-    
+    public void Destroy_Building(int ID)
+    {
+        foreach(GameObject obj in Buildings)
+        {
+            if (obj.GetInstanceID()==ID)
+            {
+                Vector2 position=new Vector2(obj.transform.position.x,obj.transform.position.z);
+                positionList[position]=1;
+                Buildings.Remove(obj);
+                Destroy(obj);
+                break;
+            }
+        }
+    }
 }

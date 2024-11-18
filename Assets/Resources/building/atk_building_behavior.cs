@@ -8,6 +8,7 @@ public class ATK_Building_Behavior : MonoBehaviour
 
 
     public ATK_building_Card card_info;
+    private building_placement manager;
 
     public GameObject arrowPrefab;        
     private Transform arrowSpawnPoint;   
@@ -15,6 +16,7 @@ public class ATK_Building_Behavior : MonoBehaviour
     private float lastAttackTime = -Mathf.Infinity;
     void Start()
     {
+        manager = FindObjectOfType<building_placement>();
         arrowSpawnPoint = transform;
     }
     void Update()
@@ -37,6 +39,10 @@ public class ATK_Building_Behavior : MonoBehaviour
         else
         {
             Debug.Log("No enemies in range");
+        }
+
+        if (card_info.maximum_HP <= 0){
+            manager.Destroy_Building(gameObject.GetInstanceID());
         }
     }
 
@@ -75,6 +81,10 @@ public class ATK_Building_Behavior : MonoBehaviour
                 arrowScript.SetTarget(enemy); 
             }
         }
+    }
+    public void TakeDamage(int attackDamage)
+    {
+        card_info.maximum_HP -= attackDamage;
     }
 
     private void OnDrawGizmosSelected()
