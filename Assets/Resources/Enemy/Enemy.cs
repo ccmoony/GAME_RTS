@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    public int health = 3; 
-
+    public float health; 
+    public float maxHealth=3f;
     public Transform target; 
     private UnityEngine.AI.NavMeshAgent agent; 
     private building_placement manager;
+    public Image healthBarFill;  // 这是血条填充部分
+    private float healthBarWidth; // 血条宽度
     void Start()
     {
         manager = FindObjectOfType<building_placement>();
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>(); 
+        healthBarWidth = healthBarFill.rectTransform.sizeDelta.x;
+        health = maxHealth;
         if (target == null)
         {
             Debug.LogWarning("Target not set for the enemy!");
@@ -21,6 +26,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        SetHealth(health);
         float min_distance=100f;
         foreach (var building in manager.Buildings)
         {
@@ -42,12 +48,18 @@ public class Enemy : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            Die();
+            Destroy(gameObject);
         }
     }
 
-    void Die()
+    public void SetHealth(float Health)
     {
-        Destroy(gameObject); // 销毁敌人
+        health = Mathf.Clamp(Health, 0, maxHealth);
+        float healthPercentage = health / maxHealth; 
+        // 通过比例设置血条
+        // Debug.Log("Health Percentage: " + healthPercentage);
+        healthBarFill.fillAmount = health / maxHealth;
+        //设置rectTransform的宽度
+        healthBarFill.rectTransform.sizeDelta = new Vector2(healthBarWidth*healthPercentage, 0.1f);
     }
 }
