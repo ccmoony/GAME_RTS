@@ -8,6 +8,7 @@ public class Resource_Building_Behavior : MonoBehaviour
     private Currency_Manager currency_Manager;
     public Resource_building_Card card_info;
     private building_placement manager;
+
     public float health;
     public float maxHealth;
     public Image healthBarFill;
@@ -31,8 +32,10 @@ public class Resource_Building_Behavior : MonoBehaviour
         currency_Manager=GameObject.Find("Cardbox").GetComponent<Currency_Manager>();
         StartCoroutine(GenerateCurrency());
         health = card_info.maximum_HP;
+
         maxHealth = card_info.maximum_HP;
         healthBarWidth = healthBarFill.rectTransform.sizeDelta.x;
+
     }
     public void TakeDamage(int attackDamage)
     {
@@ -41,6 +44,7 @@ public class Resource_Building_Behavior : MonoBehaviour
 
 
     void Update(){
+
         SetHealth(health);
         if (health <= 0){
             manager.Destroy_Building(gameObject.GetInstanceID());

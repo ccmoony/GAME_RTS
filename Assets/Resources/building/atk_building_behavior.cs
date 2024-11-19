@@ -15,6 +15,7 @@ public class ATK_Building_Behavior : MonoBehaviour
     public float maxHealth;
     public Image healthBarFill;
     private float healthBarWidth;
+
     public GameObject arrowPrefab;        
     private Transform arrowSpawnPoint;   
     public LayerMask enemyLayer;          
@@ -24,6 +25,7 @@ public class ATK_Building_Behavior : MonoBehaviour
         manager = FindObjectOfType<building_placement>();
         arrowSpawnPoint = transform;
         health = card_info.maximum_HP;
+
         maxHealth = card_info.maximum_HP;
         healthBarWidth = healthBarFill.rectTransform.sizeDelta.x;
 
