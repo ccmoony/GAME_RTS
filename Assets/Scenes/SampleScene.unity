@@ -1089,26 +1089,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45e51f2a10fc17a409151071b109c333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ifrandom: 0
   radius: 3
   terrain_height_offset: -0.9
   max_x: 50
   max_z: 50
   noise_scale: 0.02
   island_size: 0.9
+  z_step: 0
+  x_step: 0
+  x_offset: 0
+  z_num: 0
+  x_num: 0
   hexPrefab: {fileID: 5504302954204935096, guid: 52e9ea7a7566a004ca7d65b99d37083e, type: 3}
   treePrefab:
-  - {fileID: 1928123463396898, guid: fa2e3e03af9ba714ba333616cb227f74, type: 3}
-  - {fileID: 1517019888071542, guid: f948067cdcaf7a24ea008e9c3053bdf9, type: 3}
+  - {fileID: 1928123463396898, guid: 3cbfc5ef29e3be54a80b408471486399, type: 3}
+  - {fileID: 1517019888071542, guid: 72d6f24e7c3d7ca45b3da0cecdc0242e, type: 3}
   landprefabs:
   - {fileID: 3317215279478112133, guid: 61d3e39dbaa05634ebbdde780d26e6e3, type: 3}
   - {fileID: 6784303483837999188, guid: 6694c401f912dec4a849b2943ee29fb2, type: 3}
-  - {fileID: 298896908634739117, guid: 201d6aab0e9440347bcd422fe64d9581, type: 3}
-  - {fileID: 298896908634739117, guid: 201d6aab0e9440347bcd422fe64d9581, type: 3}
+  - {fileID: 298896908634739117, guid: 97e4a50a06b7606418f49b6cceb10794, type: 3}
   land_lower_bounds:
   - 0
   - 0.1
   - 0.15
-  - 0.23
+  saveList1: []
+  saveList2: 
+  saveList3: 
   Buildings: []
 --- !u!1 &1314908056
 GameObject:

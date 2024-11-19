@@ -50,7 +50,7 @@ public class ATK_Building_Behavior : MonoBehaviour
         }
 
         if (health <= 0){
-            manager.Destroy_Building(gameObject.GetInstanceID());
+            manager.Destroy_Building_from_List(gameObject.GetInstanceID());
             Destroy(gameObject);
         }
     }
