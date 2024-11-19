@@ -1,14 +1,17 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Resource_Building_Behavior : MonoBehaviour
 {
 
     private Currency_Manager currency_Manager;
     public Resource_building_Card card_info;
     private building_placement manager;
-    private int health;
+    public float health;
+    public float maxHealth;
+    public Image healthBarFill;
+    private float healthBarWidth;
 
     private IEnumerator GenerateCurrency()
     {
@@ -28,6 +31,8 @@ public class Resource_Building_Behavior : MonoBehaviour
         currency_Manager=GameObject.Find("Cardbox").GetComponent<Currency_Manager>();
         StartCoroutine(GenerateCurrency());
         health = card_info.maximum_HP;
+        maxHealth = card_info.maximum_HP;
+        healthBarWidth = healthBarFill.rectTransform.sizeDelta.x;
     }
     public void TakeDamage(int attackDamage)
     {
@@ -36,10 +41,21 @@ public class Resource_Building_Behavior : MonoBehaviour
 
 
     void Update(){
+        SetHealth(health);
         if (health <= 0){
             manager.Destroy_Building(gameObject.GetInstanceID());
             Destroy(gameObject);
         }
+    }
+    public void SetHealth(float Health)
+    {
+        health = Mathf.Clamp(Health, 0, maxHealth);
+        float healthPercentage = health / maxHealth; 
+        // 通过比例设置血条
+        // Debug.Log("Health Percentage: " + healthPercentage);
+        healthBarFill.fillAmount = health / maxHealth;
+        //设置rectTransform的宽度
+        healthBarFill.rectTransform.sizeDelta = new Vector2(healthBarWidth*healthPercentage, 0.2f);
     }
 
 }

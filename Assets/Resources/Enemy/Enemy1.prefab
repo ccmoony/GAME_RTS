@@ -122,6 +122,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   maxHealth: 3
+  attackDamage: 10
+  attackInterval: 1
+  attackRange: 6
   target: {fileID: 0}
   healthBarFill: {fileID: 6197932663309667053}
 --- !u!195 &5175924239351599995

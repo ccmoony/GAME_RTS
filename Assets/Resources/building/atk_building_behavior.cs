@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ATK_Building_Behavior : MonoBehaviour
 {
@@ -10,8 +11,10 @@ public class ATK_Building_Behavior : MonoBehaviour
     public ATK_building_Card card_info;
     private building_placement manager;
 
-    private int health;
-
+    public float health;
+    public float maxHealth;
+    public Image healthBarFill;
+    private float healthBarWidth;
     public GameObject arrowPrefab;        
     private Transform arrowSpawnPoint;   
     public LayerMask enemyLayer;          
@@ -21,11 +24,14 @@ public class ATK_Building_Behavior : MonoBehaviour
         manager = FindObjectOfType<building_placement>();
         arrowSpawnPoint = transform;
         health = card_info.maximum_HP;
+        maxHealth = card_info.maximum_HP;
+        healthBarWidth = healthBarFill.rectTransform.sizeDelta.x;
+
     }
     void Update()
     {
         Collider[] enemiesInRange = Physics.OverlapSphere(transform.position, card_info.ATK_range, enemyLayer);
-
+        SetHealth(health);
         if (enemiesInRange.Length > 0)
         {
             Transform closestEnemy = FindClosestEnemy(enemiesInRange);
@@ -92,5 +98,16 @@ public class ATK_Building_Behavior : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, card_info.ATK_range);
+    }
+    public void SetHealth(float Health)
+    {
+        health = Mathf.Clamp(Health, 0, maxHealth);
+        float healthPercentage = health / maxHealth; 
+        // 通过比例设置血条
+        // Debug.Log("Health Percentage: " + healthPercentage);
+        healthBarFill.fillAmount = health / maxHealth;
+        //设置rectTransform的宽度
+        healthBarFill.rectTransform.sizeDelta = new Vector2(healthBarWidth*healthPercentage, 0.2f);
+        // Debug.Log("Health: " + health);
     }
 }
