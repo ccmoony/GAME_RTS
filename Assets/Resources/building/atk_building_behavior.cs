@@ -10,6 +10,8 @@ public class ATK_Building_Behavior : MonoBehaviour
     public ATK_building_Card card_info;
     private building_placement manager;
 
+    private int health;
+
     public GameObject arrowPrefab;        
     private Transform arrowSpawnPoint;   
     public LayerMask enemyLayer;          
@@ -18,12 +20,10 @@ public class ATK_Building_Behavior : MonoBehaviour
     {
         manager = FindObjectOfType<building_placement>();
         arrowSpawnPoint = transform;
+        health = card_info.maximum_HP;
     }
     void Update()
     {
-        Debug.Log(transform.position);
-        Debug.Log(card_info.ATK_range);
-        Debug.Log(enemyLayer);
         Collider[] enemiesInRange = Physics.OverlapSphere(transform.position, card_info.ATK_range, enemyLayer);
 
         if (enemiesInRange.Length > 0)
@@ -41,8 +41,9 @@ public class ATK_Building_Behavior : MonoBehaviour
             Debug.Log("No enemies in range");
         }
 
-        if (card_info.maximum_HP <= 0){
+        if (health <= 0){
             manager.Destroy_Building(gameObject.GetInstanceID());
+            Destroy(gameObject);
         }
     }
 
@@ -84,7 +85,7 @@ public class ATK_Building_Behavior : MonoBehaviour
     }
     public void TakeDamage(int attackDamage)
     {
-        card_info.maximum_HP -= attackDamage;
+        health -= attackDamage;
     }
 
     private void OnDrawGizmosSelected()

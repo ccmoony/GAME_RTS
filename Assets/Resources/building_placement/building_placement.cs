@@ -276,7 +276,6 @@ public class building_placement : MonoBehaviour
                 Vector2 position=new Vector2(obj.transform.position.x,obj.transform.position.z);
                 positionList[position]=1;
                 Buildings.Remove(obj);
-                Destroy(obj);
                 break;
             }
         }
