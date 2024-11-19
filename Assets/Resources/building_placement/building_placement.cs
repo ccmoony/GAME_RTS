@@ -7,11 +7,14 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using System.IO;
+
+
 
 public class building_placement : MonoBehaviour
 {
+    public bool ifrandom =false;
     public float radius=5f;
-
     public float terrain_height_offset=-0.9f;
 
     public float max_x=300f;
@@ -20,11 +23,17 @@ public class building_placement : MonoBehaviour
     private float min_z=-300f;
     public float noise_scale=1f;
     public float island_size=0.8f;
-    private float z_step;
-    private float x_step;
-    private float x_offset;
-    private int z_num;
-    private int x_num;
+
+    [HideInInspector]
+    public float z_step;
+    [HideInInspector]
+    public float x_step;
+    [HideInInspector]
+    public float x_offset;
+    [HideInInspector]
+    public int z_num;
+    [HideInInspector]
+    public int x_num;
 
 
     public GameObject hexPrefab;
@@ -32,26 +41,61 @@ public class building_placement : MonoBehaviour
 
     public List<GameObject> landprefabs;
     public List<float> land_lower_bounds;
-    private Dictionary<Vector2,int> positionList=new ();
+    private Dictionary<Vector2,Tuple<int,bool>> positionList=new ();
+    [HideInInspector]
+    public List<Vector2> saveList1=new();
+    [HideInInspector]
+    public List<int> saveList2=new();
+    [HideInInspector]
+    public List<bool> saveList3=new();
+    //记录建造占用情况(0/1)
     //0水面
-    //1可建造地面
-    //2树木，暂不可建造地面
+    //1沙地
+    //2草地
+    //3树木1
+    //4树木2
+    [SerializeField]
+    private Dictionary<Vector2,string> nameList=new ();
 
-    private List<GameObject> HexRings=new();//标记坐标占用情况
+    private List<GameObject> HexRings=new();
 
     public List<GameObject> Buildings=new();//记录所有建筑
 
-    // Start is called before the first frame update
-    void Awake()
-    {
-        // float terrain_y=terrain.transform.position.y;
-        // float x_length = terrain.terrainData.size.x;
-        // float z_length = terrain.terrainData.size.z;
 
-        // float max_x=x_length+terrain.transform.position.x;
-        // float min_x=terrain.transform.position.x;
-        // float max_z=z_length+terrain.transform.position.z;
-        // float min_z=terrain.transform.position.z;
+    // Start is called before the first frame update
+    void Start()
+    {
+        init_positionList();
+        if(ifrandom)
+        {
+            Generate_Random_Terrain();
+        }
+        else
+        {
+            string filePath=Application.dataPath+"/Data/Levels/level_1.json";
+            if (File.Exists(filePath))
+            {
+                string json=File.ReadAllText(filePath);
+                Load_Terrain(json);
+            }
+        }
+        Load_Hex();
+
+        foreach(var item in positionList)
+        {
+            saveList1.Add(item.Key);
+            saveList2.Add(item.Value.Item1);
+            saveList3.Add(item.Value.Item2);
+        }
+        
+        string json1 = JsonUtility.ToJson(this);
+        string filePath1=Application.dataPath+"/Data/Levels/level_1"+".json";
+        File.WriteAllText(filePath1, json1);
+        Debug.Log("Save Level 1");
+        
+    }
+    void init_positionList()
+    {
         if(island_size>1f){island_size=1f;}
         min_x=-max_x;
         min_z=-max_z;
@@ -67,8 +111,8 @@ public class building_placement : MonoBehaviour
 
         z_num=(int)((max_z-min_z)/z_step);
         x_num=(int)((max_x-min_x)/x_step);
-        //初始化坐标，并生成六边形预制件
-        GameObject tmpobj;
+        //初始化坐标，
+        
 
         bool isoffset=false;
         
@@ -81,27 +125,34 @@ public class building_placement : MonoBehaviour
                 if(isoffset)
                 {
                     
-                    positionList.Add(new Vector2(tmp_x+x_offset,tmp_z),0);
-                    tmpobj=Instantiate(hexPrefab,new Vector3(tmp_x+x_offset,0.2f,tmp_z),hexPrefab.transform.rotation);
-                    tmpobj.SetActive(false);
-                    
-                    HexRings.Add(tmpobj);
+                    positionList.Add(new Vector2(tmp_x+x_offset,tmp_z),Tuple.Create(0,false));
                 }
                 else
                 {
-                    positionList.Add(new Vector2(tmp_x,tmp_z),0);
-                    tmpobj=Instantiate(hexPrefab,new Vector3(tmp_x,0.2f,tmp_z),hexPrefab.transform.rotation);
-                    tmpobj.SetActive(false);
-                    
-                    HexRings.Add(tmpobj);
+                    positionList.Add(new Vector2(tmp_x,tmp_z),Tuple.Create(0,false));
                 }
                 
             }
             isoffset=!isoffset;
         }
+    }
+    public void Generate_Random_Terrain()
+    {
+        // float terrain_y=terrain.transform.position.y;
+        // float x_length = terrain.terrainData.size.x;
+        // float z_length = terrain.terrainData.size.z;
+
+        // float max_x=x_length+terrain.transform.position.x;
+        // float min_x=terrain.transform.position.x;
+        // float max_z=z_length+terrain.transform.position.z;
+        // float min_z=terrain.transform.position.z;
+
+        GameObject tmpobj;
 
         Debug.Log("x_num:"+x_num);
         Debug.Log("坐标初始化完成");
+
+
         //地形生成
         int land_types=landprefabs.Count;
         int tree_types=treePrefab.Count;    
@@ -109,11 +160,6 @@ public class building_placement : MonoBehaviour
         float rand_y=UnityEngine.Random.Range(0f,100f);
         //Debug.Log("rand_x:"+rand_x+" \nrand_y:"+rand_y);
         land_lower_bounds.Add(100f);
-
-        //此处代码可能存在问题
-
-        
-        
         //
         for(int j=0;j<positionList.Keys.Count;j++)
         {
@@ -134,7 +180,7 @@ public class building_placement : MonoBehaviour
                 }
                 if (land_index==0||land_index==1){
                     tmpobj=Instantiate(landprefabs[land_index],new Vector3(tmp_x,terrain_height_offset,tmp_z)+landprefabs[land_index].transform.position,landprefabs[land_index].transform.rotation);
-                    positionList[positionList.ElementAt(j).Key]=land_index==0?0:1;
+                    positionList[positionList.ElementAt(j).Key]=land_index==0?Tuple.Create(0,false):Tuple.Create(1,true);
                     tmpobj.transform.parent=transform;
                     tmpobj.transform.name="land";
                 }
@@ -143,19 +189,19 @@ public class building_placement : MonoBehaviour
                     for(int i=0;i<treePrefab.Count;i++)
                     {
                         float noise_=Mathf.PerlinNoise(tmp_x*noise_scale*3+rand_x+i*100,tmp_z*noise_scale*3+rand_y+i*100);
-                        if (noise_>0.75)
+                        if (noise_>0.75)//树木
                         {
                             tmpobj=Instantiate(treePrefab[i],new Vector3(tmp_x,terrain_height_offset,tmp_z)+treePrefab[i].transform.position,treePrefab[i].transform.rotation);
-                            positionList[positionList.ElementAt(j).Key]=2;
+                            positionList[positionList.ElementAt(j).Key]=Tuple.Create(3+i,false);
                             tmpobj.transform.parent=transform;
                             tmpobj.transform.name="land";
                             is_tree=true;
                             break;
                     }
-                    if (!is_tree)
+                    if (!is_tree)//草地
                     {
                         tmpobj=Instantiate(landprefabs[land_index],new Vector3(tmp_x,terrain_height_offset,tmp_z)+landprefabs[land_index].transform.position,landprefabs[land_index].transform.rotation);
-                        positionList[positionList.ElementAt(j).Key]=1;
+                        positionList[positionList.ElementAt(j).Key]=Tuple.Create(2,true);
                         tmpobj.transform.parent=transform;
                         tmpobj.transform.name="land";
 
@@ -168,19 +214,89 @@ public class building_placement : MonoBehaviour
         }
 
 
-        // plant_tree();
+        
+    }
+    public void Load_Terrain(string json)
+    {
+        GameObject tmpobj;
+        var _hexPrefab=hexPrefab;
+        var _treePrefab=treePrefab;
+        var _landprefabs=landprefabs;
+        JsonUtility.FromJsonOverwrite(json,this);
+        ifrandom=false;
+        hexPrefab=_hexPrefab;
+        treePrefab=_treePrefab;
+        landprefabs=_landprefabs;
+
+        // saveList1=loaded_script.saveList1;
+        // saveList2=loaded_script.saveList2;
+        // saveList3=loaded_script.saveList3;
+        // radius=loaded_script.radius;
+        // terrain_height_offset=loaded_script.terrain_height_offset;
+        // max_x=loaded_script.max_x;
+        // min_x=loaded_script.min_x;
+        // max_z=loaded_script.max_z;
+        // min_z=loaded_script.min_z;
+        // noise_scale=loaded_script.noise_scale;
+        // island_size=loaded_script.island_size;
+        // treePrefab=loaded_script.treePrefab;
+        // landprefabs=loaded_script.landprefabs;
+        // land_lower_bounds=loaded_script.land_lower_bounds;
+        // z_step=loaded_script.z_step;
+        // x_step=loaded_script.x_step;
+        // x_offset=loaded_script.x_offset;
+        // z_num=loaded_script.z_num;
+        // x_num=loaded_script.x_num;
+
+        
+
+        for(int i=0;i<saveList1.Count;i++)
+        {
+            positionList[saveList1[i]]=Tuple.Create(saveList2[i],saveList3[i]);
+        }
+
+        foreach(var item in positionList)//重新生成地形
+        {
+            if(item.Value.Item1<=2)//非树
+            {
+                if(item.Value.Item1==1)
+                {
+                    Debug.Log("沙地");
+                }
+                Debug.Log(landprefabs.Count);
+                tmpobj=Instantiate(landprefabs[item.Value.Item1],
+                    new Vector3(item.Key.x,terrain_height_offset,item.Key.y)+landprefabs[item.Value.Item1].transform.position,
+                    landprefabs[item.Value.Item1].transform.rotation);
+                tmpobj.transform.parent=transform;
+            }
+            else//树
+            {
+                tmpobj=Instantiate(treePrefab[item.Value.Item1-3],
+                    new Vector3(item.Key.x,terrain_height_offset,item.Key.y)+treePrefab[item.Value.Item1-3].transform.position,
+                    treePrefab[item.Value.Item1-3].transform.rotation);
+                tmpobj.transform.parent=transform;
+            }
+        }
 
     }
-    void Start()
+    void Load_Hex()
     {
+        foreach(var item in positionList)
+        {
+            if (item.Value.Item2==true)
+            {
+                GameObject tmpobj=Instantiate(hexPrefab,new Vector3(item.Key.x,0.2f,item.Key.y),hexPrefab.transform.rotation);
+                tmpobj.SetActive(false);
+                HexRings.Add(tmpobj);
+            }
+        }
         GameObject HexParent=GameObject.Find("HexRings");
         foreach(GameObject obj in HexRings)
         {
             obj.transform.parent=HexParent.transform;
         }
-        
-
     }
+
     // Update is called once per frame
     float perlin_falloff(float x,float z)
     {
@@ -190,7 +306,7 @@ public class building_placement : MonoBehaviour
         
         return falloff;
     }
-    public Dictionary<Vector2,int> GetPositionList()
+    public Dictionary<Vector2,Tuple<int,bool>> GetPositionList()
     {
         return positionList;
     }
@@ -209,7 +325,7 @@ public class building_placement : MonoBehaviour
             {
                 foreach(var item in positionList)
                 {
-                    if(item.Value==1)
+                    if(item.Value.Item2==true)
                     {
                         if (Mathf.Abs(item.Key.x-hit.point.x)>min_distance||Mathf.Abs(item.Key.y-hit.point.z)>min_distance){continue;}
                         float tmp_dist=Vector2.Distance(new Vector2(hit.point.x,hit.point.z),item.Key);
@@ -227,11 +343,7 @@ public class building_placement : MonoBehaviour
     {
         Vector2 nearest_position= new(blue_position.x,blue_position.z);
         
-
-
-
         if (hit.transform.name=="Terrain")
-
         {
             float hitx=hit.point.x;
             float hitz=hit.point.z;
@@ -250,7 +362,7 @@ public class building_placement : MonoBehaviour
             {
                 index+=(int)((hitx-min_x-x_offset)/x_step)+1;
             }
-            if(positionList.ElementAt(index).Value!=1){return nearest_position;}//不可建造
+            if(positionList.ElementAt(index).Value.Item2==false){return nearest_position;}//不可建造
 
             nearest_position=positionList.ElementAt(index).Key;        
         }
@@ -261,23 +373,23 @@ public class building_placement : MonoBehaviour
 
         GameObject tmpobj=Instantiate(new_building,place,rotation);
         tmpobj.transform.parent=transform;
-        positionList[new Vector2(place.x, place.z)]=0;
+        positionList[new Vector2(place.x, place.z)]=Tuple.Create(positionList[new Vector2(place.x, place.z)].Item1,false);
         Buildings.Add(tmpobj);
 
         return tmpobj;
     }
-
-    public void Destroy_Building(int ID)
+    public void Destroy_Building_from_List(int ID)
     {
         foreach(GameObject obj in Buildings)
         {
             if (obj.GetInstanceID()==ID)
             {
                 Vector2 position=new Vector2(obj.transform.position.x,obj.transform.position.z);
-                positionList[position]=1;
-                Buildings.Remove(obj);
+                positionList[position]=Tuple.Create(positionList[position].Item1,true);//可建造
                 break;
             }
         }
     }
+
+    
 }
