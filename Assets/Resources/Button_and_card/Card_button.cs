@@ -10,7 +10,6 @@ public class Card_button : MonoBehaviour
     public GameObject blueprint;
 
     public TextMeshProUGUI card_name;
-    public TextMeshProUGUI HP;
     public TextMeshProUGUI Resource;
     public TextMeshProUGUI Output;
     public Image building_photo;
@@ -50,19 +49,18 @@ public class Card_button : MonoBehaviour
         //print info
 
         card_name.text=card_info.cardName;
-        HP.text = "HP: "+card_info.maximum_HP.ToString();
-        Resource.text="消耗:\n "+card_info.cost_gold.ToString()+"金";
+        Resource.text="消耗: "+card_info.cost_gold.ToString()+"金";
         level_color.color=Card.CARD_LEVEL_COLORS[card_info.level];
 
         if (card_info is Resource_building_Card)
         {
             var resource_building= card_info as Resource_building_Card;
-            Output.text="产出:\n "+resource_building.output_gold.ToString()+"金/"+resource_building.cycle.ToString()+"秒";
+            Output.text="产出: "+resource_building.output_gold.ToString()+"金/"+resource_building.cycle.ToString()+"秒";
         }
         else if (card_info is ATK_building_Card)
         {
             var ATK_building= card_info as ATK_building_Card;
-            Output.text="伤害:\n "+ATK_building.ATK.ToString()+"/"+ATK_building.cycle.ToString()+"秒";
+            Output.text="伤害： "+ATK_building.ATK.ToString()+"/"+ATK_building.cycle.ToString()+"秒";
         }
     }
     public void Update()
