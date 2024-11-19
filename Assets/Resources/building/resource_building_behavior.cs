@@ -59,7 +59,7 @@ public class Resource_Building_Behavior : MonoBehaviour
         // Debug.Log("Health Percentage: " + healthPercentage);
         healthBarFill.fillAmount = health / maxHealth;
         //设置rectTransform的宽度
-        healthBarFill.rectTransform.sizeDelta = new Vector2(healthBarWidth*healthPercentage, 0.2f);
+        healthBarFill.rectTransform.sizeDelta = new Vector2(healthBarWidth*healthPercentage, 0.3f);
     }
 
 }
