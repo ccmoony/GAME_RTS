@@ -1113,9 +1113,7 @@ MonoBehaviour:
   - 0
   - 0.1
   - 0.15
-  saveList1: []
-  saveList2: 
-  saveList3: 
+  HexRings: []
   Buildings: []
 --- !u!1 &1314908056
 GameObject:
