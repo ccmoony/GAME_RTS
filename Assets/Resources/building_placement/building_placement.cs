@@ -9,7 +9,73 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.IO;
 
+[Serializable]
+public class save_map_data
+{
 
+    public float radius=5f;
+    public float terrain_height_offset=-0.9f;
+
+    public float max_x=300f;
+    public float max_z=300f;
+    public float noise_scale=1f;
+    public float island_size=0.8f;
+
+    public float z_step;
+    public float x_step;
+    public float x_offset;
+    public int z_num;
+    public int x_num;
+    public List<float> land_lower_bounds;
+    public List<Vector2> saveList1=new();
+    public List<int> saveList2=new();
+    public List<bool> saveList3=new();
+    //记录建造占用情况(0/1)
+    //0水面
+    //1沙地
+    //2草地
+    //3树木1
+    //4树木2
+
+    public List<GameObject> Buildings=new();//记录所有建筑
+
+    public save_map_data(float _radius,float _terrain_height_offset,float _max_x,float _max_z,float _noise_scale,float _island_size,
+        float _z_step,float _x_step,float _x_offset,int _z_num,int _x_num,List<float> _land_lower_bounds,Dictionary<Vector2,Tuple<int,bool>> _positionList,
+        List<GameObject> _Buildings)
+    {
+        radius=_radius;
+        terrain_height_offset=_terrain_height_offset;
+        max_x=_max_x;
+        max_z=_max_z;
+        noise_scale=_noise_scale;
+        island_size=_island_size;
+        z_step=_z_step;
+        x_step=_x_step;
+        x_offset=_x_offset;
+        z_num=_z_num;
+        x_num=_x_num;
+        land_lower_bounds=_land_lower_bounds;
+        foreach(var item in _positionList)
+        {
+            saveList1.Add(item.Key);
+            saveList2.Add(item.Value.Item1);
+            saveList3.Add(item.Value.Item2);
+        }
+        Buildings=_Buildings;
+    }
+    public save_map_data()
+    {
+
+    }
+    public void save_map()
+    {
+        string json = JsonUtility.ToJson(this);
+        string filePath=Application.dataPath+"/Data/Levels/level_1"+".json";
+        File.WriteAllText(filePath, json);
+        Debug.Log("Save Level 1");
+    }
+   
+}
 
 public class building_placement : MonoBehaviour
 {
@@ -42,12 +108,12 @@ public class building_placement : MonoBehaviour
     public List<GameObject> landprefabs;
     public List<float> land_lower_bounds;
     private Dictionary<Vector2,Tuple<int,bool>> positionList=new ();
-    [HideInInspector]
-    public List<Vector2> saveList1=new();
-    [HideInInspector]
-    public List<int> saveList2=new();
-    [HideInInspector]
-    public List<bool> saveList3=new();
+    // [HideInInspector]
+    // public List<Vector2> saveList1=new();
+    // [HideInInspector]
+    // public List<int> saveList2=new();
+    // [HideInInspector]
+    // public List<bool> saveList3=new();
     //记录建造占用情况(0/1)
     //0水面
     //1沙地
@@ -55,7 +121,6 @@ public class building_placement : MonoBehaviour
     //3树木1
     //4树木2
     [SerializeField]
-    private Dictionary<Vector2,string> nameList=new ();
 
     private List<GameObject> HexRings=new();
 
@@ -81,17 +146,8 @@ public class building_placement : MonoBehaviour
         }
         Load_Hex();
 
-        foreach(var item in positionList)
-        {
-            saveList1.Add(item.Key);
-            saveList2.Add(item.Value.Item1);
-            saveList3.Add(item.Value.Item2);
-        }
-        
-        string json1 = JsonUtility.ToJson(this);
-        string filePath1=Application.dataPath+"/Data/Levels/level_1"+".json";
-        File.WriteAllText(filePath1, json1);
-        Debug.Log("Save Level 1");
+        save_map_data save_data=new save_map_data(radius,terrain_height_offset,max_x,max_z,noise_scale,island_size,z_step,x_step,x_offset,z_num,x_num,land_lower_bounds,positionList,Buildings);
+        save_data.save_map();
         
     }
     void init_positionList()
@@ -219,35 +275,24 @@ public class building_placement : MonoBehaviour
     public void Load_Terrain(string json)
     {
         GameObject tmpobj;
-        var _hexPrefab=hexPrefab;
-        var _treePrefab=treePrefab;
-        var _landprefabs=landprefabs;
-        JsonUtility.FromJsonOverwrite(json,this);
-        ifrandom=false;
-        hexPrefab=_hexPrefab;
-        treePrefab=_treePrefab;
-        landprefabs=_landprefabs;
-
-        // saveList1=loaded_script.saveList1;
-        // saveList2=loaded_script.saveList2;
-        // saveList3=loaded_script.saveList3;
-        // radius=loaded_script.radius;
-        // terrain_height_offset=loaded_script.terrain_height_offset;
-        // max_x=loaded_script.max_x;
-        // min_x=loaded_script.min_x;
-        // max_z=loaded_script.max_z;
-        // min_z=loaded_script.min_z;
-        // noise_scale=loaded_script.noise_scale;
-        // island_size=loaded_script.island_size;
-        // treePrefab=loaded_script.treePrefab;
-        // landprefabs=loaded_script.landprefabs;
-        // land_lower_bounds=loaded_script.land_lower_bounds;
-        // z_step=loaded_script.z_step;
-        // x_step=loaded_script.x_step;
-        // x_offset=loaded_script.x_offset;
-        // z_num=loaded_script.z_num;
-        // x_num=loaded_script.x_num;
-
+        save_map_data save_data=new save_map_data();
+        JsonUtility.FromJsonOverwrite(json,save_data);
+        radius=save_data.radius;
+        terrain_height_offset=save_data.terrain_height_offset;
+        max_x=save_data.max_x;
+        max_z=save_data.max_z;
+        noise_scale=save_data.noise_scale;
+        island_size=save_data.island_size;
+        z_step=save_data.z_step;
+        x_step=save_data.x_step;
+        x_offset=save_data.x_offset;
+        z_num=save_data.z_num;
+        x_num=save_data.x_num;
+        land_lower_bounds=save_data.land_lower_bounds;
+        List<Vector2> saveList1=save_data.saveList1;
+        List<int> saveList2=save_data.saveList2;
+        List<bool> saveList3=save_data.saveList3;
+        Buildings=save_data.Buildings;
         
 
         for(int i=0;i<saveList1.Count;i++)
@@ -259,10 +304,7 @@ public class building_placement : MonoBehaviour
         {
             if(item.Value.Item1<=2)//非树
             {
-                if(item.Value.Item1==1)
-                {
-                    Debug.Log("沙地");
-                }
+                
                 Debug.Log(landprefabs.Count);
                 tmpobj=Instantiate(landprefabs[item.Value.Item1],
                     new Vector3(item.Key.x,terrain_height_offset,item.Key.y)+landprefabs[item.Value.Item1].transform.position,
@@ -380,14 +422,21 @@ public class building_placement : MonoBehaviour
     }
     public void Destroy_Building_from_List(int ID)
     {
-        foreach(GameObject obj in Buildings)
+        int i=0;
+        bool found=false;
+        for(;i<Buildings.Count;i++)
         {
-            if (obj.GetInstanceID()==ID)
+            if (Buildings[i].GetInstanceID()==ID)
             {
-                Vector2 position=new Vector2(obj.transform.position.x,obj.transform.position.z);
+                Vector2 position=new Vector2(Buildings[i].transform.position.x,Buildings[i].transform.position.z);
                 positionList[position]=Tuple.Create(positionList[position].Item1,true);//可建造
+                found=true;
                 break;
             }
+        }
+        if (found)
+        {
+            Buildings.RemoveAt(i);
         }
     }
 
