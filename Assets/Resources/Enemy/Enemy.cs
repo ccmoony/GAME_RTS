@@ -48,6 +48,7 @@ public class Enemy : MonoBehaviour
 
     void FindClosestTarget()
     {
+
         float minDistance = 100f;
         targetBuilding = null;
 

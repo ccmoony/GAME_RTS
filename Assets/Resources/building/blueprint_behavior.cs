@@ -8,9 +8,9 @@ public class blueprint_behavior : MonoBehaviour
 {
     RaycastHit hit;
     public GameObject real_building;
-
+    [HideInInspector]
     public GameObject placement_obj;
-
+    [HideInInspector]
     public GraphicRaycaster graphicRaycaster;
     private GameObject father_button;
 

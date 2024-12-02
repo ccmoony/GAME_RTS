@@ -26,10 +26,13 @@ public class Card_manager : MonoBehaviour
         init_card2.GetComponent<Card_button>().card_info=GetNewCard();
         init_card3.GetComponent<Card_button>().card_info=GetNewCard();
 
-        var info1=init_card1.GetComponent<Card_button>().card_info;
-        var info2=init_card2.GetComponent<Card_button>().card_info;
-        var info3=init_card3.GetComponent<Card_button>().card_info;
-        if (info1.cardName!="House"&&info2.cardName!="House"&&info3.cardName!="House")//防止无民房
+        var button1=init_card1.GetComponent<Card_button>();
+        var button2=init_card2.GetComponent<Card_button>();
+        var button3=init_card3.GetComponent<Card_button>();
+        button1.button_id=1;
+        button2.button_id=2;
+        button3.button_id=3;
+        if (button1.card_info.cardName!="House"&&button2.card_info.cardName!="House"&&button3.card_info.cardName!="House")//防止无民房
         {
             init_card1.GetComponent<Card_button>().card_info=cardList_level_0[0];
         }
@@ -124,7 +127,7 @@ public class Card_manager : MonoBehaviour
         }
     }
 
-    public Card GetNewCard(int level=-1)
+    public Card GetNewCard(int level=-1,int button_id=-1)
     {
 
         if(level==0)//0级
@@ -163,12 +166,12 @@ public class Card_manager : MonoBehaviour
             }
         }
     }
-    public void Create_New_Card(Vector3 old_position)
+    public void Create_New_Card(Vector3 old_position,int button_id)
     {
         
         GameObject new_card=Instantiate(cardPrefab);
         new_card.GetComponent<RectTransform>().SetParent(transform);
         new_card.GetComponent<RectTransform>().position=old_position;
-        new_card.GetComponent<Card_button>().card_info=GetNewCard();
+        new_card.GetComponent<Card_button>().card_info=GetNewCard(-1,button_id);
     }
 }
