@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    private AttackEffect attackEffect;
-
     public float health; 
     public float maxHealth=3f;
     public int attackDamage = 1; // 攻击伤害
@@ -22,7 +20,6 @@ public class Enemy : MonoBehaviour
     private float attackCooldown; // 攻击冷却计时
     void Start()
     {
-        attackEffect = GetComponent<AttackEffect>();
         manager = FindObjectOfType<building_placement>();
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>(); 
         healthBarWidth = healthBarFill.rectTransform.sizeDelta.x;
@@ -51,6 +48,7 @@ public class Enemy : MonoBehaviour
 
     void FindClosestTarget()
     {
+
         float minDistance = 100f;
         targetBuilding = null;
 
@@ -82,10 +80,6 @@ public class Enemy : MonoBehaviour
             if (targetBuilding != null)
             {
                 // 对目标造成伤害
-                if(attackEffect != null)
-                {
-                    attackEffect.GenerateBladeEffectNearEnemy(transform, target);
-                }
                 var buildingComponent = targetBuilding.GetComponent<ATK_Building_Behavior>();
                 if (buildingComponent != null)
                 {

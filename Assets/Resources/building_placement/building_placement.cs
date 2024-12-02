@@ -12,7 +12,6 @@ using System.IO;
 [Serializable]
 public class save_map_data
 {
-
     public float radius=5f;
     public float terrain_height_offset=-0.9f;
 
@@ -30,6 +29,8 @@ public class save_map_data
     public List<Vector2> saveList1=new();
     public List<int> saveList2=new();
     public List<bool> saveList3=new();
+    public int base_location_index=new();
+    public List<int> enemy_spawn_location_indices=new();
     //记录建造占用情况(0/1)
     //0水面
     //1沙地
@@ -37,11 +38,9 @@ public class save_map_data
     //3树木1
     //4树木2
 
-    public List<GameObject> Buildings=new();//记录所有建筑
-
     public save_map_data(float _radius,float _terrain_height_offset,float _max_x,float _max_z,float _noise_scale,float _island_size,
         float _z_step,float _x_step,float _x_offset,int _z_num,int _x_num,List<float> _land_lower_bounds,Dictionary<Vector2,Tuple<int,bool>> _positionList,
-        List<GameObject> _Buildings)
+        int _base_location_index, List<int> _enemy_spawn_location_indices)
     {
         radius=_radius;
         terrain_height_offset=_terrain_height_offset;
@@ -55,13 +54,14 @@ public class save_map_data
         z_num=_z_num;
         x_num=_x_num;
         land_lower_bounds=_land_lower_bounds;
+        base_location_index=_base_location_index;
+        enemy_spawn_location_indices=_enemy_spawn_location_indices;
         foreach(var item in _positionList)
         {
             saveList1.Add(item.Key);
             saveList2.Add(item.Value.Item1);
             saveList3.Add(item.Value.Item2);
         }
-        Buildings=_Buildings;
     }
     public save_map_data()
     {
@@ -79,10 +79,12 @@ public class save_map_data
 
 public class building_placement : MonoBehaviour
 {
+    
     public bool ifrandom =false;
+    public bool random_base=false;
+    public TextAsset cardData;
     public float radius=5f;
     public float terrain_height_offset=-0.9f;
-
     public float max_x=300f;
     private float min_x=-300f;
     public float max_z=300f;
@@ -107,23 +109,21 @@ public class building_placement : MonoBehaviour
 
     public List<GameObject> landprefabs;
     public List<float> land_lower_bounds;
+    public GameObject base_prefab;
     private Dictionary<Vector2,Tuple<int,bool>> positionList=new ();
-    // [HideInInspector]
-    // public List<Vector2> saveList1=new();
-    // [HideInInspector]
-    // public List<int> saveList2=new();
-    // [HideInInspector]
-    // public List<bool> saveList3=new();
     //记录建造占用情况(0/1)
     //0水面
     //1沙地
     //2草地
     //3树木1
     //4树木2
+    public int base_location_index;
+    public List<int> enemy_spawn_location_indices=new();
+    
     [SerializeField]
-
+    [HideInInspector]
     private List<GameObject> HexRings=new();
-
+    [HideInInspector]   
     public List<GameObject> Buildings=new();//记录所有建筑
 
 
@@ -145,9 +145,6 @@ public class building_placement : MonoBehaviour
             }
         }
         Load_Hex();
-
-        save_map_data save_data=new save_map_data(radius,terrain_height_offset,max_x,max_z,noise_scale,island_size,z_step,x_step,x_offset,z_num,x_num,land_lower_bounds,positionList,Buildings);
-        save_data.save_map();
         
     }
     void init_positionList()
@@ -205,8 +202,7 @@ public class building_placement : MonoBehaviour
 
         GameObject tmpobj;
 
-        Debug.Log("x_num:"+x_num);
-        Debug.Log("坐标初始化完成");
+
 
 
         //地形生成
@@ -268,9 +264,62 @@ public class building_placement : MonoBehaviour
                 }
             }
         }
-
-
-        
+        //读取卡片数据
+        string[] dataRow = cardData.text.Split('\n');
+        //加载基地
+        if(random_base)
+        {
+            int tmp_count=(int)z_num/2*x_num+(int)x_num/2;
+            bool exist_land=false;
+            while(true)
+            {
+                int tmp_rand=UnityEngine.Random.Range(0,3);
+                switch(tmp_rand)
+                {
+                    case 0:
+                        tmp_count++;
+                        break;
+                    case 1:
+                        tmp_count--;
+                        break;
+                    case 2:
+                        tmp_count+=x_num;
+                        break;
+                    case 3:
+                        tmp_count-=x_num;
+                        break;
+                }
+                if (tmp_count<0||tmp_count>=positionList.Count)
+                {
+                    for(int i=0;i<positionList.Count;i++)
+                    {
+                        if (positionList.ElementAt(i).Value.Item1==1||positionList.ElementAt(i).Value.Item1==2)
+                        {
+                            tmp_count=i;
+                            exist_land=true;
+                            break;
+                        }
+                    }
+                    break;
+                
+                }
+                if(positionList.ElementAt(tmp_count).Value.Item1==1
+                ||positionList.ElementAt(tmp_count).Value.Item1==2)
+                {
+                    exist_land=true;
+                    break;
+                }
+            }
+            if (!exist_land)
+            {
+                Debug.Log("找不到可供放置基地的地块");
+            }
+            else//放置基地
+            {
+                base_location_index=tmp_count;
+                Place_Base(dataRow,positionList.ElementAt(tmp_count).Key);
+            }
+        }
     }
     public void Load_Terrain(string json)
     {
@@ -292,7 +341,8 @@ public class building_placement : MonoBehaviour
         List<Vector2> saveList1=save_data.saveList1;
         List<int> saveList2=save_data.saveList2;
         List<bool> saveList3=save_data.saveList3;
-        Buildings=save_data.Buildings;
+        base_location_index=save_data.base_location_index;
+        enemy_spawn_location_indices=save_data.enemy_spawn_location_indices;
         
 
         for(int i=0;i<saveList1.Count;i++)
@@ -319,7 +369,38 @@ public class building_placement : MonoBehaviour
                 tmpobj.transform.parent=transform;
             }
         }
+        //加载基地
+        string[] dataRow = cardData.text.Split('\n');
+        Place_Base(dataRow,positionList.ElementAt(base_location_index).Key);
 
+    }
+    void Place_Base(string[] dataRow,Vector2 location2d)//放置基地
+    {
+        Resource_building_Card resource_Building_Card = null;
+            foreach (var row in dataRow)
+            {
+                string[] rowArray=row.Split(',');
+                if (rowArray[0]=="BASE")
+                {
+                    int id=int.Parse(rowArray[1]);
+                    string cardCode=rowArray[2];
+                    string cardName=rowArray[3];
+                    int maximum_HP=int.Parse(rowArray[4]);
+                    int cost_gold=int.Parse(rowArray[5]);
+                    int level=int.Parse(rowArray[6]);
+                    int output_gold=int.Parse(rowArray[7]);
+                    int cycle=int.Parse(rowArray[8]);
+
+                resource_Building_Card=
+                new(id,cardCode,cardName,maximum_HP,cost_gold,level,output_gold,cycle);
+                break;
+                }
+            }
+            GameObject real_base=Place_New_Building(base_prefab,
+                                                new Vector3(location2d.x,0,location2d.y),
+                                                base_prefab.transform.rotation);
+            var building_behavior=real_base.GetComponent<Resource_Building_Behavior>();
+            building_behavior.card_info=resource_Building_Card;
     }
     void Load_Hex()
     {
@@ -338,8 +419,6 @@ public class building_placement : MonoBehaviour
             obj.transform.parent=HexParent.transform;
         }
     }
-
-    // Update is called once per frame
     float perlin_falloff(float x,float z)
     {
         float x_falloff=MathF.Max(1f-Mathf.Abs(x/(max_x*island_size)),0);
@@ -412,7 +491,11 @@ public class building_placement : MonoBehaviour
     }
     public GameObject Place_New_Building(GameObject new_building,Vector3 place,Quaternion rotation)
     {
-
+        Debug.Log(new_building.transform.name);
+        if(new_building.transform.name=="BASE")
+        {
+            base_location_index=positionList.Keys.ToList().IndexOf(new Vector2(place.x,place.z));
+        }
         GameObject tmpobj=Instantiate(new_building,place,rotation);
         tmpobj.transform.parent=transform;
         positionList[new Vector2(place.x, place.z)]=Tuple.Create(positionList[new Vector2(place.x, place.z)].Item1,false);
@@ -439,6 +522,24 @@ public class building_placement : MonoBehaviour
             Buildings.RemoveAt(i);
         }
     }
-
+    public void Save_map()
+    {
+        save_map_data save_data=new save_map_data(radius,
+                                                terrain_height_offset,
+                                                max_x,
+                                                max_z,
+                                                noise_scale,
+                                                island_size,
+                                                z_step,
+                                                x_step,
+                                                x_offset,
+                                                z_num,
+                                                x_num,
+                                                land_lower_bounds,
+                                                positionList,
+                                                base_location_index,
+                                                enemy_spawn_location_indices);
+        save_data.save_map();
+    }
     
 }
