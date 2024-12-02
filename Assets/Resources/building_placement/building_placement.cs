@@ -106,6 +106,8 @@ public class building_placement : MonoBehaviour
     public List<GameObject> treePrefab;
 
     public List<GameObject> landprefabs;
+    public GameObject sandwithtree;
+    public GameObject waterwithrock;
     public List<float> land_lower_bounds;
     private Dictionary<Vector2,Tuple<int,bool>> positionList=new ();
     // [HideInInspector]
@@ -211,7 +213,9 @@ public class building_placement : MonoBehaviour
 
         //地形生成
         int land_types=landprefabs.Count;
-        int tree_types=treePrefab.Count;    
+        int tree_types=treePrefab.Count;  
+        List<GameObject> grassList=landprefabs.GetRange(2,landprefabs.Count-2);
+        int grass_types=grassList.Count;
         float rand_x=UnityEngine.Random.Range(0f,100f);
         float rand_y=UnityEngine.Random.Range(0f,100f);
         //Debug.Log("rand_x:"+rand_x+" \nrand_y:"+rand_y);
@@ -226,7 +230,7 @@ public class building_placement : MonoBehaviour
                 float noise= Mathf.PerlinNoise(tmp_x*noise_scale+rand_x,tmp_z*noise_scale+rand_y)*perlin_falloff(tmp_x,tmp_z);
 
                 int land_index=0;
-                for(int i=0;i<land_types;i++)
+                for(int i=0;i<land_types-grass_types+1;i++)
                 {
                     if (noise>land_lower_bounds[i]&&noise<land_lower_bounds[i+1])
                     {
@@ -234,11 +238,30 @@ public class building_placement : MonoBehaviour
                         break;
                     }
                 }
+                // Debug.Log("land_index:"+land_index);
                 if (land_index==0||land_index==1){
-                    tmpobj=Instantiate(landprefabs[land_index],new Vector3(tmp_x,terrain_height_offset,tmp_z)+landprefabs[land_index].transform.position,landprefabs[land_index].transform.rotation);
-                    positionList[positionList.ElementAt(j).Key]=land_index==0?Tuple.Create(0,false):Tuple.Create(1,true);
-                    tmpobj.transform.parent=transform;
-                    tmpobj.transform.name="land";
+                    if(land_index==0){
+                        tmpobj=Instantiate(landprefabs[land_index],new Vector3(tmp_x,terrain_height_offset,tmp_z)+landprefabs[land_index].transform.position,landprefabs[land_index].transform.rotation);
+                        positionList[positionList.ElementAt(j).Key]=land_index==0?Tuple.Create(0,false):Tuple.Create(1,true);
+                        tmpobj.transform.parent=transform;
+                        tmpobj.transform.name="land";
+                    }
+                    else{
+                        float randomValue=UnityEngine.Random.Range(0f,1f);
+                        if (randomValue<0.8f)
+                        {
+                            tmpobj=Instantiate(landprefabs[land_index],new Vector3(tmp_x,terrain_height_offset,tmp_z)+landprefabs[land_index].transform.position,landprefabs[land_index].transform.rotation);
+                            positionList[positionList.ElementAt(j).Key]=land_index==0?Tuple.Create(0,false):Tuple.Create(1,true);
+                            tmpobj.transform.parent=transform;
+                            tmpobj.transform.name="land";
+                        }
+                        else{
+                            tmpobj=Instantiate(sandwithtree,new Vector3(tmp_x,terrain_height_offset,tmp_z)+sandwithtree.transform.position,sandwithtree.transform.rotation);
+                            positionList[positionList.ElementAt(j).Key]=Tuple.Create(1,true);
+                            tmpobj.transform.parent=transform;
+                            tmpobj.transform.name="land";
+                        }
+                    }
                 }
                 else{//种树种草
                     bool is_tree=false;
@@ -255,7 +278,13 @@ public class building_placement : MonoBehaviour
                             break;
                     }
                     if (!is_tree)//草地
-                    {
+                    {   
+                        land_index=UnityEngine.Random.Range(2,landprefabs.Count);
+                        if(land_index!=2){
+                            float randomValue=UnityEngine.Random.Range(0f,1f);
+                            if(randomValue<0.5f){land_index=2;}
+                        }
+                        // Debug.Log("land_index:"+land_index);
                         tmpobj=Instantiate(landprefabs[land_index],new Vector3(tmp_x,terrain_height_offset,tmp_z)+landprefabs[land_index].transform.position,landprefabs[land_index].transform.rotation);
                         positionList[positionList.ElementAt(j).Key]=Tuple.Create(2,true);
                         tmpobj.transform.parent=transform;

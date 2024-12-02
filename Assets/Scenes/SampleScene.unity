@@ -1089,7 +1089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45e51f2a10fc17a409151071b109c333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ifrandom: 0
+  ifrandom: 1
   radius: 3
   terrain_height_offset: -0.9
   max_x: 50
@@ -1105,10 +1105,13 @@ MonoBehaviour:
   treePrefab:
   - {fileID: 1928123463396898, guid: 3cbfc5ef29e3be54a80b408471486399, type: 3}
   - {fileID: 1517019888071542, guid: 72d6f24e7c3d7ca45b3da0cecdc0242e, type: 3}
+  - {fileID: 465596796993294048, guid: 0e4a7e4b5d19c514bbe7fc7f18ff6d01, type: 3}
+  - {fileID: 870438970417717787, guid: 5826d54c650dc7f48a6f916c753d52f6, type: 3}
   landprefabs:
   - {fileID: 3317215279478112133, guid: 61d3e39dbaa05634ebbdde780d26e6e3, type: 3}
   - {fileID: 6784303483837999188, guid: 6694c401f912dec4a849b2943ee29fb2, type: 3}
   - {fileID: 298896908634739117, guid: 97e4a50a06b7606418f49b6cceb10794, type: 3}
+  sandwithtree: {fileID: 6784303483837999188, guid: 812c07e51f25dea479597407f14106c4, type: 3}
   land_lower_bounds:
   - 0
   - 0.1
