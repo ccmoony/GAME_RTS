@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Card_button : MonoBehaviour
 {
-    public int button_id;
-    public bool edit_mode=false;
+    
     public GameObject blueprint;
 
     public TextMeshProUGUI card_name;
@@ -22,7 +20,6 @@ public class Card_button : MonoBehaviour
     private building_placement placement_class;
     private GameObject card_box;
     private Card_manager card_manager;
-    private Card_manager4editor card_manager4editor;
     private bool selected=false;
     private RectTransform rectTransform;
 
@@ -39,12 +36,9 @@ public class Card_button : MonoBehaviour
         placement_class=placement_obj.GetComponent<building_placement>();
 
         card_box=GameObject.Find("Cardbox");
-
         card_manager=card_box.GetComponent<Card_manager>();
-        card_manager4editor=card_box.GetComponent<Card_manager4editor>();
 
         currency_Manager=card_box.GetComponent<Currency_Manager>();
-        
         rectTransform=GetComponent<RectTransform>();
         //load card info
 
@@ -121,14 +115,7 @@ public class Card_button : MonoBehaviour
     }
     public void remove_card()
     {
-        if(!edit_mode)
-        {
-            card_manager.Create_New_Card(gameObject.GetComponent<RectTransform>().position,button_id);
-        }
-        else
-        {
-            card_manager4editor.Create_New_Card(gameObject.GetComponent<RectTransform>().position,button_id);
-        }
+        card_manager.Create_New_Card(gameObject.GetComponent<RectTransform>().position);
         currency_Manager.Change_money(-card_info.cost_gold);
 
         Destroy(gameObject);
