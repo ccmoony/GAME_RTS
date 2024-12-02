@@ -9,8 +9,8 @@ public class Resource_Building_Behavior : MonoBehaviour
     public Resource_building_Card card_info;
     private building_placement manager;
 
-    public float health;
-    public float maxHealth;
+    private float health;
+    private float maxHealth;
     public Image healthBarFill;
     private float healthBarWidth;
 

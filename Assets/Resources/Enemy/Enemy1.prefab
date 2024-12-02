@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8300559115800699910}
   - component: {fileID: 6809303487648060302}
   - component: {fileID: 5175924239351599995}
+  - component: {fileID: -6806612004720040112}
   m_Layer: 8
   m_Name: Enemy1
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 983664875381235298}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.223175, y: 22.48981, z: -32.40015}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -149,6 +150,21 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-6806612004720040112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983664875381235298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a6ed92a2f44a475b9b957697f5785a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bladeEffectPrefab: {fileID: 3616150205273182218, guid: 5a22f9635de96478fb9a6df7dd21090b, type: 3}
+  effectDuration: 0.5
+  spawnOffset: 0.45
 --- !u!1001 &5015923669430204492
 PrefabInstance:
   m_ObjectHideFlags: 0
