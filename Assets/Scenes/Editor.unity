@@ -1245,8 +1245,6 @@ MonoBehaviour:
   - {fileID: 3317215279478112133, guid: 61d3e39dbaa05634ebbdde780d26e6e3, type: 3}
   - {fileID: 6784303483837999188, guid: 6694c401f912dec4a849b2943ee29fb2, type: 3}
   - {fileID: 298896908634739117, guid: 97e4a50a06b7606418f49b6cceb10794, type: 3}
-  sandwithtree: {fileID: 6784303483837999188, guid: 812c07e51f25dea479597407f14106c4, type: 3}
-  waterwithrock: {fileID: 0}
   land_lower_bounds:
   - 0
   - 0.1
