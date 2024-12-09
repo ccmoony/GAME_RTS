@@ -4,3 +4,4 @@ BASE,0,BASE,基地,300,0,0,2,5,
 Resource_building_Card,1,House,民房,100,2,0,1,5,
 #,id,cardCode,cardName,maximum_HP,cost_gold,level,ATK,cycle,ATK_range
 ATK_building_Card,2,Tower,箭塔,50,5,0,10,1,15.1
+ATK_building_Card,3,Bunker,碉堡,50,5,0,10,1,15.1

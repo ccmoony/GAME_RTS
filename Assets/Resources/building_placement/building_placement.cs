@@ -355,7 +355,7 @@ public class building_placement : MonoBehaviour
             if(item.Value.Item1<=2)//非树
             {
                 
-                Debug.Log(landprefabs.Count);
+                //Debug.Log(landprefabs.Count);
                 tmpobj=Instantiate(landprefabs[item.Value.Item1],
                     new Vector3(item.Key.x,terrain_height_offset,item.Key.y)+landprefabs[item.Value.Item1].transform.position,
                     landprefabs[item.Value.Item1].transform.rotation);
@@ -491,7 +491,7 @@ public class building_placement : MonoBehaviour
     }
     public GameObject Place_New_Building(GameObject new_building,Vector3 place,Quaternion rotation)
     {
-        Debug.Log(new_building.transform.name);
+        //Debug.Log(new_building.transform.name);
         if(new_building.transform.name=="BASE")
         {
             base_location_index=positionList.Keys.ToList().IndexOf(new Vector2(place.x,place.z));

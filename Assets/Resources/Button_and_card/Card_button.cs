@@ -49,10 +49,9 @@ public class Card_button : MonoBehaviour
         //load card info
 
         //load prefab 
-        Debug.Log("loading"+"building/"+card_info.cardCode+"/"+card_info.cardCode+"_blueprint");
+        //Debug.Log("loading"+"building/"+card_info.cardCode+"/"+card_info.cardCode+"_blueprint");
         blueprint=Resources.Load<GameObject>("building/"+card_info.cardCode+"/"+card_info.cardCode+"_blueprint");
-
-        //print info
+        //Debug.Log(blueprint.GetComponent<blueprint_behavior>());
 
         card_name.text=card_info.cardName;
         Resource.text="消耗: "+card_info.cost_gold.ToString()+"金";

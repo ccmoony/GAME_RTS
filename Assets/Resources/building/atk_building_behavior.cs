@@ -82,7 +82,7 @@ public class ATK_Building_Behavior : MonoBehaviour
         if (arrowPrefab != null && arrowSpawnPoint != null)
         {
 
-            Debug.Log("Attacking enemy");
+            //Debug.Log("Attacking enemy");
             GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, Quaternion.identity);
             Arrow arrowScript = arrow.GetComponent<Arrow>();
             if (arrowScript != null)

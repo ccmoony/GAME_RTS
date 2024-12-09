@@ -44,7 +44,7 @@ public class blueprint_behavior : MonoBehaviour
 
             Vector2 nearest_position= placement_class.Find_nearest_build_position(hit,transform.position);//获取最近建造位置
             
-            transform.position=new Vector3(nearest_position.x,0.2f,nearest_position.y);
+            transform.position=new Vector3(nearest_position.x,0.15f,nearest_position.y);
 
         }
         
@@ -62,7 +62,7 @@ public class blueprint_behavior : MonoBehaviour
         {   
             Vector2 nearest_position= placement_class.Find_nearest_build_position(hit,transform.position);//获取最近建造位置
             
-            transform.position=new Vector3(nearest_position.x,0.2f,nearest_position.y);//+0.1f防止模型底部高亮和地形发生穿模
+            transform.position=new Vector3(nearest_position.x,0.15f,nearest_position.y);//+0.1f防止模型底部高亮和地形发生穿模
 
             if (Input.GetMouseButton(0) && hit.transform.name=="Terrain")//进行建造
             {
@@ -76,7 +76,7 @@ public class blueprint_behavior : MonoBehaviour
                     {
                         placement_class.SetHexRingStatus(false);
 
-                        transform.position=new Vector3(transform.position.x,transform.position.y-0.2f,transform.position.z);
+                        
 
                         GameObject instance_real_building=
                         placement_class.Place_New_Building(real_building,transform.position,real_building.transform.rotation);//真实建筑物体
