@@ -226,6 +226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321c72074b1c768489cd20d7baa86735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button_id: 0
+  edit_mode: 0
   blueprint: {fileID: 1138279985382132866, guid: 42eb7b98e36e33c4fbddd23a0702b586, type: 3}
   card_name: {fileID: 2642990725644528494}
   Resource: {fileID: 7678011437321044150}
