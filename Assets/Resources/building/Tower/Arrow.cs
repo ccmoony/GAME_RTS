@@ -43,7 +43,7 @@ public class Arrow : MonoBehaviour
         {
             enemy.TakeDamage((int)damage);
         }
-        Debug.Log("Hit " + target.name + " for " + damage + " damage!");
+        //Debug.Log("Hit " + target.name + " for " + damage + " damage!");
 
         Destroy(gameObject);
     }

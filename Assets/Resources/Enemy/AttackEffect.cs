@@ -12,7 +12,7 @@ public class AttackEffect : MonoBehaviour
         if (bladeEffectPrefab != null && enemy != null && target != null)
         {
             // 计算刀光的生成位置
-            Debug.Log("Attack effect generated");
+            //Debug.Log("Attack effect generated");
 
             Vector3 spawnPosition = enemy.position + spawnOffset * (target.position - enemy.position);
 

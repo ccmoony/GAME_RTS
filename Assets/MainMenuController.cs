@@ -9,6 +9,6 @@ public class MainMenuController : MonoBehaviour
     public void StartGame()
     {
         // 加载SampleScene
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("GameScene");
     }
 }

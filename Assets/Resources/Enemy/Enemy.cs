@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
         health = maxHealth;
         if (target == null)
         {
-            Debug.LogWarning("Target not set for the enemy!");
+            //Debug.LogWarning("Target not set for the enemy!");
         }
     }
 
@@ -76,7 +76,7 @@ public class Enemy : MonoBehaviour
     void Attack()
     {
         // 攻击冷却判断
-        Debug.Log("Attacking building");
+        //Debug.Log("Attacking building");
         if (attackCooldown <= 0f)
         {
             if (targetBuilding != null)
@@ -100,7 +100,7 @@ public class Enemy : MonoBehaviour
                     }
                 }
 
-                Debug.Log($"Attacked {targetBuilding.name} for {attackDamage} damage!");
+                //Debug.Log($"Attacked {targetBuilding.name} for {attackDamage} damage!");
             }
 
             // 重置冷却时间
