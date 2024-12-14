@@ -1136,7 +1136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1314908057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1149,6 +1149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66563abe81d6c4251a9b6f0f3fb0ea9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startSpawn: 0
   enemyPrefab: {fileID: 983664875381235298, guid: 5646dd0b9a271465b925becc0fc3c0e3, type: 3}
   spawnInterval: 5
   maxEnemies: 10
