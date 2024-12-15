@@ -434,7 +434,7 @@ public class building_placement : MonoBehaviour
             {
                 GameObject real_enemy_base=Place_New_Building(Enemy_base_prefab,
                                                 new Vector3(positionList.ElementAt(index).Key.x,0.15f,positionList.ElementAt(index).Key.y),
-                                                base_prefab.transform.rotation);
+                                                Enemy_base_prefab.transform.rotation);
                 var ENEMY_BASE_behavior=real_enemy_base.GetComponent<EnemySpawner>();
                 
                 ENEMY_BASE_behavior.spawnInterval=enemy_base_Card.spawnInterval;

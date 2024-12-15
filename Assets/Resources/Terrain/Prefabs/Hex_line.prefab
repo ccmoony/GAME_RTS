@@ -153,6 +153,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 23975794153207380, guid: 4de53d3dd25d2ae46948b7b1d46b6d55, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 65182474818668776, guid: 4de53d3dd25d2ae46948b7b1d46b6d55, type: 3}
     m_RemovedGameObjects: []
@@ -194,7 +198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4645267033727058, guid: 4de53d3dd25d2ae46948b7b1d46b6d55, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.01
+      value: -0.003
       objectReference: {fileID: 0}
     - target: {fileID: 4645267033727058, guid: 4de53d3dd25d2ae46948b7b1d46b6d55, type: 3}
       propertyPath: m_LocalPosition.z
