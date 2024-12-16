@@ -38,22 +38,11 @@ public class Arrow : MonoBehaviour
 
     void HitTarget()
     {
-        Enemy_melle enemy = target.GetComponent<Enemy_melle>();
+        Enemy enemy = target.GetComponent<Enemy>();
         if (enemy != null)
         {
             enemy.TakeDamage((int)damage);
         }
-<<<<<<< HEAD
-=======
-        else
-        {
-            Enemy_ranged enemy2 =  target.GetComponent<Enemy_ranged>();
-            if (enemy2 != null)
-            {
-                enemy2.TakeDamage((int)damage);
-            }
-        }
->>>>>>> origin/main
         //Debug.Log("Hit " + target.name + " for " + damage + " damage!");
 
         Destroy(gameObject);

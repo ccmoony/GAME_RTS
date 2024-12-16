@@ -264,9 +264,9 @@ GameObject:
   - component: {fileID: 6940878355095104295}
   - component: {fileID: 9193082948386927734}
   - component: {fileID: 4078114707705264543}
-  - component: {fileID: 8900642281251754843}
+  - component: {fileID: 6609520011893115608}
   m_Layer: 0
-  m_Name: House
+  m_Name: Camp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -346,7 +346,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8900642281251754843
+--- !u!114 &6609520011893115608
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -355,9 +355,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6633672694320901215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a06c7adca0b60994a883715dea96e847, type: 3}
+  m_Script: {fileID: 11500000, guid: c5d0a59588e3e99468423bb90cf28973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soldierPrefab: {fileID: 1861364405042477595, guid: ea9534bf0fb9ade43900676da412c91b, type: 3}
+  spawnInterval: 5
+  maxSoldiers: 10
   health: 0
   maxHealth: 0
   healthBarFill: {fileID: 4325979108676561079}

@@ -112,10 +112,7 @@ public class building_placement : MonoBehaviour
     public List<float> land_lower_bounds;
     public GameObject base_prefab;
     private Dictionary<Vector2,Tuple<int,bool>> positionList=new ();
-<<<<<<< HEAD
-=======
     private string Scene_name;
->>>>>>> origin/main
     //记录建造占用情况(0/1)
     //0水面
     //1沙地
@@ -323,11 +320,7 @@ public class building_placement : MonoBehaviour
             else//放置基地
             {
                 base_location_index=tmp_count;
-<<<<<<< HEAD
-                Place_Base(dataRow,positionList.ElementAt(tmp_count).Key);
-=======
                 Place_Base(dataRow,tmp_count);
->>>>>>> origin/main
             }
         }
     }
@@ -381,14 +374,6 @@ public class building_placement : MonoBehaviour
         }
         //加载基地
         string[] dataRow = cardData.text.Split('\n');
-<<<<<<< HEAD
-        Place_Base(dataRow,positionList.ElementAt(base_location_index).Key);
-
-    }
-    void Place_Base(string[] dataRow,Vector2 location2d)//放置基地
-    {
-        Resource_building_Card resource_Building_Card = null;
-=======
         Place_Base(dataRow,base_location_index);
         Place_ENEMY_BASE(dataRow,enemy_spawn_location_indices);
 
@@ -397,7 +382,6 @@ public class building_placement : MonoBehaviour
     {
         Resource_building_Card resource_Building_Card = null;
         var location2d=positionList.ElementAt(base_location_index).Key;
->>>>>>> origin/main
             foreach (var row in dataRow)
             {
                 string[] rowArray=row.Split(',');
@@ -418,12 +402,6 @@ public class building_placement : MonoBehaviour
                 }
             }
             GameObject real_base=Place_New_Building(base_prefab,
-<<<<<<< HEAD
-                                                new Vector3(location2d.x,0,location2d.y),
-                                                base_prefab.transform.rotation);
-            var building_behavior=real_base.GetComponent<Resource_Building_Behavior>();
-            building_behavior.card_info=resource_Building_Card;
-=======
                                                 new Vector3(location2d.x,0.15f,location2d.y),
                                                 base_prefab.transform.rotation);
             var Base_behavior=real_base.GetComponent<Resource_Building_Behavior>();
@@ -463,7 +441,6 @@ public class building_placement : MonoBehaviour
                 ENEMY_BASE_behavior.maxEnemies=enemy_base_Card.maxEnemies;
                 ENEMY_BASE_behavior.startSpawn=true;
             }
->>>>>>> origin/main
     }
     void Load_Hex()
     {
@@ -555,11 +532,6 @@ public class building_placement : MonoBehaviour
     public GameObject Place_New_Building(GameObject new_building,Vector3 place,Quaternion rotation)
     {
         //Debug.Log(new_building.transform.name);
-<<<<<<< HEAD
-        if(new_building.transform.name=="BASE")
-        {
-            base_location_index=positionList.Keys.ToList().IndexOf(new Vector2(place.x,place.z));
-=======
         if (Scene_name=="Editor")
         {
             if(new_building.transform.name=="BASE"||new_building.transform.name=="BASE(Clone)")
@@ -570,7 +542,6 @@ public class building_placement : MonoBehaviour
             {
                 enemy_spawn_location_indices.Add(positionList.Keys.ToList().IndexOf(new Vector2(place.x,place.z)));
             }
->>>>>>> origin/main
         }
         GameObject tmpobj=Instantiate(new_building,place,rotation);
         tmpobj.transform.parent=transform;

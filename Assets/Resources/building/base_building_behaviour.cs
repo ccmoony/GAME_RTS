@@ -8,6 +8,7 @@ public class Base_Building_Behavior : MonoBehaviour
     private Currency_Manager currency_Manager;
     public Resource_building_Card card_info;
     private building_placement manager;
+    
 
     private float health;
     private float maxHealth;

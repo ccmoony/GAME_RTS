@@ -9,10 +9,7 @@ using UnityEngine.UI;
 public class Card_button : MonoBehaviour
 {
     public int button_id;
-<<<<<<< HEAD
-=======
     [HideInInspector]
->>>>>>> origin/main
     public bool edit_mode=false;
     public GameObject blueprint;
 
