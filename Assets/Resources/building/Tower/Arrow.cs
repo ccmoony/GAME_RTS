@@ -27,7 +27,7 @@ public class Arrow : MonoBehaviour
         if (Vector3.Distance(transform.position, target.position) <= distanceThisFrame)
         {
             HitTarget();
-            Destroy(gameObject);
+            return;
         }
         Quaternion lookRotation = Quaternion.LookRotation(direction); 
 
@@ -38,18 +38,10 @@ public class Arrow : MonoBehaviour
 
     void HitTarget()
     {
-        Enemy_melle enemy = target.GetComponent<Enemy_melle>();
+        Enemy enemy = target.GetComponent<Enemy>();
         if (enemy != null)
         {
             enemy.TakeDamage((int)damage);
-        }
-        else
-        {
-            Enemy_ranged enemy2 =  target.GetComponent<Enemy_ranged>();
-            if (enemy2 != null)
-            {
-                enemy2.TakeDamage((int)damage);
-            }
         }
         //Debug.Log("Hit " + target.name + " for " + damage + " damage!");
 
