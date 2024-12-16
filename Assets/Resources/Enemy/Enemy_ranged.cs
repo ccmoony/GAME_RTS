@@ -3,34 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Enemy : MonoBehaviour
+public class Enemy_ranged : MonoBehaviour
 {
-    private AttackEffect attackEffect;
 
     public float health; 
     public float maxHealth=3f;
-    public int attackDamage = 1; // 攻击伤害
-    public float attackInterval = 1f; // 攻击间隔时间
+    public int attackDamage = 1; 
+    public float attackInterval = 1f; 
 
-    public float attackRange = 6f;
+    public float attackRange = 10f;
     public Transform target; 
     private GameObject targetBuilding;
+
+    public GameObject arrowPrefab;  
+    private Transform arrowSpawnPoint; 
     private UnityEngine.AI.NavMeshAgent agent; 
     private building_placement manager;
-    public Image healthBarFill;  // 这是血条填充部分
-    private float healthBarWidth; // 血条宽度
-    private float attackCooldown; // 攻击冷却计时
+    public Image healthBarFill;  
+    private float healthBarWidth; 
+    private float attackCooldown; 
     void Start()
     {
-        attackEffect = GetComponent<AttackEffect>();
         manager = FindObjectOfType<building_placement>();
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>(); 
         healthBarWidth = healthBarFill.rectTransform.sizeDelta.x;
         health = maxHealth;
-        if (target == null)
-        {
-            //Debug.LogWarning("Target not set for the enemy!");
-        }
+        arrowSpawnPoint = transform;
+
     }
 
     void Update()
@@ -83,28 +82,16 @@ public class Enemy : MonoBehaviour
         //Debug.Log("Attacking building");
         if (attackCooldown <= 0f)
         {
-            if (targetBuilding != null)
+ 
+            if (arrowPrefab != null && arrowSpawnPoint != null)
             {
-                // 对目标造成伤害
-                if(attackEffect != null)
-                {
-                    attackEffect.GenerateBladeEffectNearEnemy(transform, target);
-                }
-                var buildingComponent = targetBuilding.GetComponent<ATK_Building_Behavior>();
-                if (buildingComponent != null)
-                {
-                    buildingComponent.TakeDamage(attackDamage);
-                }
-                else
-                {
-                    var buildingComponent2 = targetBuilding.GetComponent<Resource_Building_Behavior>();
-                    if (buildingComponent2 != null)
-                    {
-                        buildingComponent2.TakeDamage(attackDamage);
-                    }
-                }
 
-                //Debug.Log($"Attacked {targetBuilding.name} for {attackDamage} damage!");
+                GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, Quaternion.identity);
+                Arrow_enemy arrowScript = arrow.GetComponent<Arrow_enemy>();
+                if (arrowScript != null)
+                {
+                    arrowScript.SetTarget(targetBuilding.transform); 
+                }
             }
 
             // 重置冷却时间
@@ -124,4 +111,5 @@ public class Enemy : MonoBehaviour
         //设置rectTransform的宽度
         healthBarFill.rectTransform.sizeDelta = new Vector2(healthBarWidth*healthPercentage, 0.1f);
     }
+
 }
