@@ -1,14 +1,17 @@
 using System.Collections;
 using UnityEngine;
-
+using TMPro;
 public class EnemySpawner : MonoBehaviour
 {
     public bool startSpawn=false;
     public GameObject enemyPrefab_melle;
 
     public GameObject enemyPrefab_ranged; 
-    public float spawnInterval = 3.0f; 
-    public int maxEnemies = 10; 
+    public float spawnInterval = 1.0f; 
+    public int maxEnemies = 2; 
+
+    public float roundInterval = 5.0f;
+
     private int currentEnemyCount_melle = 0; 
 
     private int currentEnemyCount_ranged = 0;
@@ -34,6 +37,16 @@ public class EnemySpawner : MonoBehaviour
 
                 yield return new WaitForSeconds(spawnInterval);
             }
+            yield return new WaitForSeconds(roundInterval);
+            currentEnemyCount_melle = 0;
+
+            while (currentEnemyCount_melle < maxEnemies)
+            {
+                SpawnEnemy_melle();
+                currentEnemyCount_melle++;
+
+                yield return new WaitForSeconds(spawnInterval);
+            }            
 
             spawnCoroutine_melle = null;
         }
@@ -51,6 +64,17 @@ public class EnemySpawner : MonoBehaviour
 
                 yield return new WaitForSeconds(spawnInterval);
             }
+
+            yield return new WaitForSeconds(roundInterval);
+            
+            currentEnemyCount_ranged = 0;
+            while (currentEnemyCount_ranged < maxEnemies)
+            {
+                SpawnEnemy_melle();
+                currentEnemyCount_ranged++;
+
+                yield return new WaitForSeconds(spawnInterval);
+            }      
 
             spawnCoroutine_ranged = null;
         }

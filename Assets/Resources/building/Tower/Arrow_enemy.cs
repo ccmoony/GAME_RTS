@@ -23,7 +23,6 @@ public class Arrow_enemy : MonoBehaviour
 
         Vector3 direction = (target.position - transform.position).normalized;
         float distanceThisFrame = speed * Time.deltaTime;
-        Debug.Log(Vector3.Distance(transform.position, target.position));
         if (Vector3.Distance(transform.position, target.position) <= distanceThisFrame)
         {
             HitTarget();
