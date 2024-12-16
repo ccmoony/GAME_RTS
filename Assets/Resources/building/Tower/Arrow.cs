@@ -21,7 +21,7 @@ public class Arrow : MonoBehaviour
             return;
         }
 
-         Vector3 direction = (target.position - transform.position).normalized;
+        Vector3 direction = (target.position - transform.position).normalized;
         float distanceThisFrame = speed * Time.deltaTime;
 
         if (Vector3.Distance(transform.position, target.position) <= distanceThisFrame)
@@ -38,7 +38,19 @@ public class Arrow : MonoBehaviour
 
     void HitTarget()
     {
-	@@ -54,5 +51,5 @@ void HitTarget()
+        Enemy_melle enemy = target.GetComponent<Enemy_melle>();
+        if (enemy != null)
+        {
+            enemy.TakeDamage((int)damage);
+        }
+        else
+        {
+            Enemy_ranged enemy2 =  target.GetComponent<Enemy_ranged>();
+            if (enemy2 != null)
+            {
+                enemy2.TakeDamage((int)damage);
+            }
+        }
         //Debug.Log("Hit " + target.name + " for " + damage + " damage!");
 
         Destroy(gameObject);
