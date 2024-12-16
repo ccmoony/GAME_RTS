@@ -8,7 +8,7 @@ public class Resource_Building_Behavior : MonoBehaviour
     private Currency_Manager currency_Manager;
     public Resource_building_Card card_info;
     private building_placement manager;
-
+    public MainMenuController mainMenuController;
     public float health;
     public float maxHealth;
     public Image healthBarFill;
@@ -32,7 +32,7 @@ public class Resource_Building_Behavior : MonoBehaviour
         currency_Manager=GameObject.Find("Cardbox").GetComponent<Currency_Manager>();
         StartCoroutine(GenerateCurrency());
         health = card_info.maximum_HP;
-
+        mainMenuController=FindObjectOfType<MainMenuController>();
         maxHealth = card_info.maximum_HP;
         healthBarWidth = healthBarFill.rectTransform.sizeDelta.x;
 
@@ -48,6 +48,10 @@ public class Resource_Building_Behavior : MonoBehaviour
         SetHealth(health);
         if (health <= 0){
             manager.Destroy_Building_from_List(gameObject.GetInstanceID());
+            if (gameObject.name == "BASE"||gameObject.name == "BASE(Clone)"){
+                Debug.Log("Game Over");
+                mainMenuController.GameOver();
+            }
             Destroy(gameObject);
         }
     }

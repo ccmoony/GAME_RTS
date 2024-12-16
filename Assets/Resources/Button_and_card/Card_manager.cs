@@ -55,6 +55,8 @@ public class Card_manager : MonoBehaviour
         int ATK;
         int cycle;
         float ATK_range;
+        float spawnInterval;
+        int maxSoldiers;
 
         foreach (var row in dataRow)
         {
@@ -118,6 +120,36 @@ public class Card_manager : MonoBehaviour
                         break;
                     case 2:
                         cardList_level_2.Add(aTK_Building_Card);
+                        break;
+                    default:
+                        Debug.Log("Error! No such a LEVEL!");
+                        break;
+                }
+            }
+            else if (rowArray[0] == "Camp_building_Card")
+            {
+                id=int.Parse(rowArray[1]);
+                cardCode=rowArray[2];
+                cardName=rowArray[3];
+                maximum_HP=int.Parse(rowArray[4]);
+                cost_gold=int.Parse(rowArray[5]);
+                level=int.Parse(rowArray[6]);
+                maxSoldiers=int.Parse(rowArray[7]);
+                spawnInterval=int.Parse(rowArray[8]);
+                
+                
+                Camp_building_Card camp_Building_Card=
+                new(id,cardCode,cardName,maximum_HP,cost_gold,level,maxSoldiers,spawnInterval);
+                switch (level)
+                {
+                    case 0:
+                        cardList_level_0.Add(camp_Building_Card);
+                        break;
+                    case 1:
+                        cardList_level_1.Add(camp_Building_Card);
+                        break;
+                    case 2:
+                        cardList_level_2.Add(camp_Building_Card);
                         break;
                     default:
                         Debug.Log("Error! No such a LEVEL!");
