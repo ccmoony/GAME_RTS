@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 4927931761132290739}
   - component: {fileID: 5128795307742909747}
   - component: {fileID: 8300559115800699910}
+  - component: {fileID: 6809303487648060302}
   - component: {fileID: 5175924239351599995}
-  - component: {fileID: -384796350808765012}
+  - component: {fileID: -6806612004720040112}
   m_Layer: 8
   m_Name: Enemy1
   m_TagString: Untagged
@@ -108,6 +109,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6809303487648060302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983664875381235298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9731dabfaca604dc69188278d4dec20d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
+  maxHealth: 3
+  attackDamage: 10
+  attackInterval: 1
+  attackRange: 6
+  target: {fileID: 0}
+  healthBarFill: {fileID: 6197932663309667053}
 --- !u!195 &5175924239351599995
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -122,7 +142,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 0
-  m_StoppingDistance: 8
+  m_StoppingDistance: 5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -130,7 +150,7 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-384796350808765012
+--- !u!114 &-6806612004720040112
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,17 +159,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 983664875381235298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e8a0f13322784122b3b79dea13769c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a6ed92a2f44a475b9b957697f5785a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 3
-  attackDamage: 1
-  attackInterval: 1
-  attackRange: 10
-  target: {fileID: 0}
-  arrowPrefab: {fileID: 4569716105332775618, guid: aa818d6f4a52fb7478bcd30fee368ffb, type: 3}
-  healthBarFill: {fileID: 6197932663309667053}
+  bladeEffectPrefab: {fileID: 3616150205273182218, guid: 5a22f9635de96478fb9a6df7dd21090b, type: 3}
+  effectDuration: 0.5
+  spawnOffset: 0.45
 --- !u!1001 &5015923669430204492
 PrefabInstance:
   m_ObjectHideFlags: 0

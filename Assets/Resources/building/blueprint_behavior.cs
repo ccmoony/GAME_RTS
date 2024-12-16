@@ -102,7 +102,11 @@ public class blueprint_behavior : MonoBehaviour
                         else if (card_Button.card_info is Enemy_base_Card)
                         {
                         }
-                        else{}
+                        else if(card_Button.card_info is Camp_building_Card){
+                            var building_behavior=instance_real_building.GetComponent<CampSpawner>();
+
+                            building_behavior.card_info=card_Button.card_info as Camp_building_Card;
+                        }
 
 
                         Destroy(gameObject);
