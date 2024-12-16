@@ -60,3 +60,16 @@ public class Enemy_base_Card: Card
         this.maxEnemies=_maxEnemies;
     }
 }
+
+public class Camp_building_Card: Card
+{
+    public float spawnInterval;
+    public int maxSoldiers;
+    
+    public Camp_building_Card(int _id,string _cardCode,string _cardName,int _HP,int _gold,int _level
+    ,int _maxSoldiers,float _spawnInterval):base(_id,_cardCode,_cardName,_HP,_gold,_level)
+    {
+        this.spawnInterval=_spawnInterval;
+        this.maxSoldiers=_maxSoldiers;
+    }
+}
