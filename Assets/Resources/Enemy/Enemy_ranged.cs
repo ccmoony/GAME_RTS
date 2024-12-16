@@ -3,34 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Enemy : MonoBehaviour
+public class Enemy_ranged : MonoBehaviour
 {
-    private AttackEffect attackEffect;
 
     public float health; 
     public float maxHealth=3f;
-    public int attackDamage = 1; // 攻击伤害
-    public float attackInterval = 1f; // 攻击间隔时间
+    public int attackDamage = 1; 
+    public float attackInterval = 1f; 
 
-    public float attackRange = 6f;
+    public float attackRange = 10f;
     public Transform target; 
     private GameObject targetBuilding;
     private UnityEngine.AI.NavMeshAgent agent; 
     private building_placement manager;
-    public Image healthBarFill;  // 这是血条填充部分
-    private float healthBarWidth; // 血条宽度
-    private float attackCooldown; // 攻击冷却计时
+    public Image healthBarFill;  
+    private float healthBarWidth; 
+    private float attackCooldown; 
     void Start()
     {
-        attackEffect = GetComponent<AttackEffect>();
         manager = FindObjectOfType<building_placement>();
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>(); 
         healthBarWidth = healthBarFill.rectTransform.sizeDelta.x;
         health = maxHealth;
-        if (target == null)
-        {
-            //Debug.LogWarning("Target not set for the enemy!");
-        }
+        // if (target == null)
+        // {
+        //     Debug.LogWarning("Target not set for the enemy!");
+        // }
     }
 
     void Update()
@@ -86,10 +84,6 @@ public class Enemy : MonoBehaviour
             if (targetBuilding != null)
             {
                 // 对目标造成伤害
-                if(attackEffect != null)
-                {
-                    attackEffect.GenerateBladeEffectNearEnemy(transform, target);
-                }
                 var buildingComponent = targetBuilding.GetComponent<ATK_Building_Behavior>();
                 if (buildingComponent != null)
                 {
