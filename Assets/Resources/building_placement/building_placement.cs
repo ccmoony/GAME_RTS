@@ -8,6 +8,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class save_map_data
@@ -111,6 +112,7 @@ public class building_placement : MonoBehaviour
     public List<float> land_lower_bounds;
     public GameObject base_prefab;
     private Dictionary<Vector2,Tuple<int,bool>> positionList=new ();
+    private string Scene_name;
     //记录建造占用情况(0/1)
     //0水面
     //1沙地
@@ -130,6 +132,7 @@ public class building_placement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Scene_name=SceneManager.GetActiveScene().name;
         init_positionList();
         if(ifrandom)
         {
@@ -317,7 +320,7 @@ public class building_placement : MonoBehaviour
             else//放置基地
             {
                 base_location_index=tmp_count;
-                Place_Base(dataRow,positionList.ElementAt(tmp_count).Key);
+                Place_Base(dataRow,tmp_count);
             }
         }
     }
@@ -371,12 +374,14 @@ public class building_placement : MonoBehaviour
         }
         //加载基地
         string[] dataRow = cardData.text.Split('\n');
-        Place_Base(dataRow,positionList.ElementAt(base_location_index).Key);
+        Place_Base(dataRow,base_location_index);
+        Place_ENEMY_BASE(dataRow,enemy_spawn_location_indices);
 
     }
-    void Place_Base(string[] dataRow,Vector2 location2d)//放置基地
+    void Place_Base(string[] dataRow,int base_location_index)//放置基地
     {
         Resource_building_Card resource_Building_Card = null;
+        var location2d=positionList.ElementAt(base_location_index).Key;
             foreach (var row in dataRow)
             {
                 string[] rowArray=row.Split(',');
@@ -397,10 +402,45 @@ public class building_placement : MonoBehaviour
                 }
             }
             GameObject real_base=Place_New_Building(base_prefab,
-                                                new Vector3(location2d.x,0,location2d.y),
+                                                new Vector3(location2d.x,0.15f,location2d.y),
                                                 base_prefab.transform.rotation);
-            var building_behavior=real_base.GetComponent<Resource_Building_Behavior>();
-            building_behavior.card_info=resource_Building_Card;
+            var Base_behavior=real_base.GetComponent<Resource_Building_Behavior>();
+            Base_behavior.card_info=resource_Building_Card;
+    }
+    void Place_ENEMY_BASE(string[] dataRow,List<int> enemy_spawn_location_indices)
+    {
+        Enemy_base_Card enemy_base_Card=null;
+            foreach (var row in dataRow)
+            {
+                string[] rowArray=row.Split(',');
+                if (rowArray[0]=="ENEMY_BASE")
+                {
+                    int id=int.Parse(rowArray[1]);
+                    string cardCode=rowArray[2];
+                    string cardName=rowArray[3];
+                    int maximum_HP=int.Parse(rowArray[4]);
+                    int cost_gold=int.Parse(rowArray[5]);
+                    int level=int.Parse(rowArray[6]);
+                    float spawnInterval=int.Parse(rowArray[7]);
+                    int maxEnemies=int.Parse(rowArray[8]);
+
+                    enemy_base_Card=
+                    new(id,cardCode,cardName,maximum_HP,cost_gold,level,spawnInterval,maxEnemies);
+                    break;
+                }
+            }
+            GameObject Enemy_base_prefab=Resources.Load<GameObject>("building/ENEMY_BASE/ENEMY_BASE");   
+            foreach (int index in enemy_spawn_location_indices)
+            {
+                GameObject real_enemy_base=Place_New_Building(Enemy_base_prefab,
+                                                new Vector3(positionList.ElementAt(index).Key.x,0.15f,positionList.ElementAt(index).Key.y),
+                                                Enemy_base_prefab.transform.rotation);
+                var ENEMY_BASE_behavior=real_enemy_base.GetComponent<EnemySpawner>();
+                
+                ENEMY_BASE_behavior.spawnInterval=enemy_base_Card.spawnInterval;
+                ENEMY_BASE_behavior.maxEnemies=enemy_base_Card.maxEnemies;
+                ENEMY_BASE_behavior.startSpawn=true;
+            }
     }
     void Load_Hex()
     {
@@ -492,9 +532,16 @@ public class building_placement : MonoBehaviour
     public GameObject Place_New_Building(GameObject new_building,Vector3 place,Quaternion rotation)
     {
         //Debug.Log(new_building.transform.name);
-        if(new_building.transform.name=="BASE")
+        if (Scene_name=="Editor")
         {
-            base_location_index=positionList.Keys.ToList().IndexOf(new Vector2(place.x,place.z));
+            if(new_building.transform.name=="BASE"||new_building.transform.name=="BASE(Clone)")
+            {
+                base_location_index=positionList.Keys.ToList().IndexOf(new Vector2(place.x,place.z));
+            }
+            if(new_building.transform.name=="ENEMY_BASE"||new_building.transform.name=="ENEMY_BASE(Clone)")
+            {
+                enemy_spawn_location_indices.Add(positionList.Keys.ToList().IndexOf(new Vector2(place.x,place.z)));
+            }
         }
         GameObject tmpobj=Instantiate(new_building,place,rotation);
         tmpobj.transform.parent=transform;

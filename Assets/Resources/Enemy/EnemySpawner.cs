@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public bool startSpawn=false;
     public GameObject enemyPrefab; 
     public float spawnInterval = 3.0f; 
     public int maxEnemies = 10; 
@@ -18,20 +19,22 @@ public class EnemySpawner : MonoBehaviour
     IEnumerator SpawnEnemies()
     {
         currentEnemyCount = 0;
-
-        while (currentEnemyCount < maxEnemies)
+        if (startSpawn)
         {
-            SpawnEnemy();
-            currentEnemyCount++;
+            while (currentEnemyCount < maxEnemies)
+            {
+                SpawnEnemy();
+                currentEnemyCount++;
 
-            yield return new WaitForSeconds(spawnInterval);
+                yield return new WaitForSeconds(spawnInterval);
+            }
+
+            spawnCoroutine = null;
         }
-
-        spawnCoroutine = null;
     }
 
     void SpawnEnemy()
     {
-        Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        Instantiate(enemyPrefab, transform.position-new Vector3(0f,0.2f,0f), Quaternion.identity);
     }
 }

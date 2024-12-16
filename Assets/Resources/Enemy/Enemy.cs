@@ -56,6 +56,10 @@ public class Enemy : MonoBehaviour
 
         foreach (var building in manager.Buildings)
         {
+            if(building.name=="ENEMY_BASE"||building.name=="ENEMY_BASE(Clone)")
+            {
+                continue;
+            }
             float distance = Vector3.Distance(transform.position, building.transform.position);
             if (distance < minDistance)
             {
