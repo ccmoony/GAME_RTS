@@ -146,8 +146,9 @@ MonoBehaviour:
   maxHealth: 3
   attackDamage: 1
   attackInterval: 1
-  attackRange: 6
+  attackRange: 10
   target: {fileID: 0}
+  arrowPrefab: {fileID: 4569716105332775618, guid: aa818d6f4a52fb7478bcd30fee368ffb, type: 3}
   healthBarFill: {fileID: 6197932663309667053}
 --- !u!1001 &5015923669430204492
 PrefabInstance:

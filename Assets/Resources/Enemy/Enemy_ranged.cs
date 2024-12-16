@@ -14,6 +14,9 @@ public class Enemy_ranged : MonoBehaviour
     public float attackRange = 10f;
     public Transform target; 
     private GameObject targetBuilding;
+
+    public GameObject arrowPrefab;  
+    private Transform arrowSpawnPoint; 
     private UnityEngine.AI.NavMeshAgent agent; 
     private building_placement manager;
     public Image healthBarFill;  
@@ -25,10 +28,8 @@ public class Enemy_ranged : MonoBehaviour
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>(); 
         healthBarWidth = healthBarFill.rectTransform.sizeDelta.x;
         health = maxHealth;
-        // if (target == null)
-        // {
-        //     Debug.LogWarning("Target not set for the enemy!");
-        // }
+        arrowSpawnPoint = transform;
+
     }
 
     void Update()
@@ -81,24 +82,16 @@ public class Enemy_ranged : MonoBehaviour
         //Debug.Log("Attacking building");
         if (attackCooldown <= 0f)
         {
-            if (targetBuilding != null)
+ 
+            if (arrowPrefab != null && arrowSpawnPoint != null)
             {
-                // 对目标造成伤害
-                var buildingComponent = targetBuilding.GetComponent<ATK_Building_Behavior>();
-                if (buildingComponent != null)
-                {
-                    buildingComponent.TakeDamage(attackDamage);
-                }
-                else
-                {
-                    var buildingComponent2 = targetBuilding.GetComponent<Resource_Building_Behavior>();
-                    if (buildingComponent2 != null)
-                    {
-                        buildingComponent2.TakeDamage(attackDamage);
-                    }
-                }
 
-                //Debug.Log($"Attacked {targetBuilding.name} for {attackDamage} damage!");
+                GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, Quaternion.identity);
+                Arrow_enemy arrowScript = arrow.GetComponent<Arrow_enemy>();
+                if (arrowScript != null)
+                {
+                    arrowScript.SetTarget(targetBuilding.transform); 
+                }
             }
 
             // 重置冷却时间
@@ -118,4 +111,5 @@ public class Enemy_ranged : MonoBehaviour
         //设置rectTransform的宽度
         healthBarFill.rectTransform.sizeDelta = new Vector2(healthBarWidth*healthPercentage, 0.1f);
     }
+
 }

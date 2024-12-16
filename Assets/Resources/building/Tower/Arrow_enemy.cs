@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Arrow : MonoBehaviour
+public class Arrow_enemy : MonoBehaviour
 {
     public float speed = 10f;        
     public float damage = 1f;       
@@ -23,7 +23,7 @@ public class Arrow : MonoBehaviour
 
         Vector3 direction = (target.position - transform.position).normalized;
         float distanceThisFrame = speed * Time.deltaTime;
-
+        Debug.Log(Vector3.Distance(transform.position, target.position));
         if (Vector3.Distance(transform.position, target.position) <= distanceThisFrame)
         {
             HitTarget();
@@ -38,21 +38,24 @@ public class Arrow : MonoBehaviour
 
     void HitTarget()
     {
-        Enemy_melle enemy = target.GetComponent<Enemy_melle>();
-        if (enemy != null)
+        if (target != null)
         {
-            enemy.TakeDamage((int)damage);
-        }
-        else
-        {
-            Enemy_ranged enemy2 =  target.GetComponent<Enemy_ranged>();
-            if (enemy2 != null)
+            // 对目标造成伤害
+            var buildingComponent = target.GetComponent<ATK_Building_Behavior>();
+            if (buildingComponent != null)
             {
-                enemy2.TakeDamage((int)damage);
+                buildingComponent.TakeDamage((int)damage);
             }
-        }
-        //Debug.Log("Hit " + target.name + " for " + damage + " damage!");
+            else
+            {
+                var buildingComponent2 = target.GetComponent<Resource_Building_Behavior>();
+                if (buildingComponent2 != null)
+                {
+                    buildingComponent2.TakeDamage((int)damage);
+                }
+            }
 
-        Destroy(gameObject);
+            //Debug.Log($"Attacked {targetBuilding.name} for {attackDamage} damage!");
+        }
     }
 }
