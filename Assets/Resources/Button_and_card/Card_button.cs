@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Data.Common;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Card_button : MonoBehaviour
 {
     public int button_id;
+<<<<<<< HEAD
+=======
+    [HideInInspector]
+>>>>>>> origin/main
     public bool edit_mode=false;
     public GameObject blueprint;
 
@@ -35,6 +40,10 @@ public class Card_button : MonoBehaviour
     
     public void Start()
     {
+        if(SceneManager.GetActiveScene().name=="Editor")
+        {
+            edit_mode=true;
+        }
         placement_obj=GameObject.Find("Building_placement");
         placement_class=placement_obj.GetComponent<building_placement>();
 

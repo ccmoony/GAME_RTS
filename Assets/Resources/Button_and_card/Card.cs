@@ -49,3 +49,14 @@ public class ATK_building_Card : Card
         this.ATK_range=_ATK_range;
     }
 }
+public class Enemy_base_Card: Card
+{
+    public float spawnInterval;
+    public int maxEnemies;
+    public Enemy_base_Card(int _id,string _cardCode,string _cardName,int _HP,int _gold,int _level
+    ,float _spawnInterval,int _maxEnemies):base(_id,_cardCode,_cardName,_HP,_gold,_level)
+    {
+        this.spawnInterval=_spawnInterval;
+        this.maxEnemies=_maxEnemies;
+    }
+}

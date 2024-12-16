@@ -99,9 +99,10 @@ public class blueprint_behavior : MonoBehaviour
 
                             building_behavior.card_info=card_Button.card_info as ATK_building_Card;
                         }
-                        else
+                        else if (card_Button.card_info is Enemy_base_Card)
                         {
                         }
+                        else{}
 
 
                         Destroy(gameObject);
