@@ -52,6 +52,21 @@ public class Arrow_enemy : MonoBehaviour
                 {
                     buildingComponent2.TakeDamage((int)damage);
                 }
+                else
+                {
+                    var buildingComponent3 = target.GetComponent<CampSpawner>();
+                    if (buildingComponent3 != null)
+                    {
+                        buildingComponent3.TakeDamage((int)damage);
+                    }
+                    else{
+                        var buildingComponent4 = target.GetComponent<Soldier>();
+                        if (buildingComponent4 != null)
+                        {
+                            buildingComponent4.TakeDamage((int)damage);
+                        }
+                    }
+                }
             }
 
             //Debug.Log($"Attacked {targetBuilding.name} for {attackDamage} damage!");

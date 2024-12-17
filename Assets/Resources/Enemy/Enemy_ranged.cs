@@ -67,6 +67,17 @@ public class Enemy_ranged : MonoBehaviour
                 minDistance = distance;
             }
         }
+        Soldier[] soldiers = FindObjectsOfType<Soldier>();
+        foreach (var soldier in soldiers)
+        {
+            float distance = Vector3.Distance(transform.position, soldier.transform.position);
+            if (distance < minDistance)
+            {
+                target = soldier.transform; // 设置导航目标
+                targetBuilding = soldier.gameObject; // 设置攻击目标
+                minDistance = distance;
+            }
+        }
     }
     public void TakeDamage(int damage)
     {
