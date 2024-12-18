@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSpawn: 0
   enemyPrefab_melle: {fileID: 5258092802708488690, guid: c26c5dd1800f16d4982b67a9c10586ad, type: 3}
-  enemyPrefab_ranged: {fileID: 983664875381235298, guid: 5646dd0b9a271465b925becc0fc3c0e3, type: 3}
+  enemyPrefab_ranged: {fileID: 983664875381235298, guid: 249a28876ae633743a0c638c07dda86c, type: 3}
   spawnInterval: 3
   maxEnemies: 10
+  roundInterval: 5

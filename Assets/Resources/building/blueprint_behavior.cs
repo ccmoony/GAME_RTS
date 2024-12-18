@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class blueprint_behavior : MonoBehaviour
 {
     RaycastHit hit;
+    private int layerMask = 1;
     public GameObject real_building;
     [HideInInspector]
     public GameObject placement_obj;
@@ -28,6 +29,7 @@ public class blueprint_behavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        layerMask=1<<LayerMask.NameToLayer("Enemy");
         placement_obj=GameObject.Find("Building_placement");
 
         graphicRaycaster=GameObject.Find("Canvas").GetComponent<GraphicRaycaster>();
@@ -39,7 +41,7 @@ public class blueprint_behavior : MonoBehaviour
 
         Ray ray=Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if(Physics.Raycast(ray,out hit))
+        if(Physics.Raycast(ray,out hit,1000,~layerMask))
         {   
 
             Vector2 nearest_position= placement_class.Find_nearest_build_position(hit,transform.position);//获取最近建造位置
@@ -58,7 +60,7 @@ public class blueprint_behavior : MonoBehaviour
 
 
         
-        if(Physics.Raycast(ray,out hit))
+        if(Physics.Raycast(ray,out hit,1000,~layerMask))
         {   
             Vector2 nearest_position= placement_class.Find_nearest_build_position(hit,transform.position);//获取最近建造位置
             

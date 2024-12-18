@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4006268029254367052}
   - component: {fileID: 4030316652117743357}
   - component: {fileID: 285452911752335395}
-  - component: {fileID: 4844531506927511194}
+  - component: {fileID: 3024830715104233876}
   m_Layer: 0
   m_Name: Camp_blueprint
   m_TagString: Untagged
@@ -27,9 +27,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5790144551404220874}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5790144551404220874}
-  m_Mesh: {fileID: -5468021829708598221, guid: 36bc6e6e36cfe4544b7257315a954ec6, type: 3}
+  m_Mesh: {fileID: -2447776121362496397, guid: 0bab1bc05a6e2684c9d1f472485a7370, type: 3}
 --- !u!23 &285452911752335395
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 830258910468995235, guid: 36bc6e6e36cfe4544b7257315a954ec6, type: 3}
+  - {fileID: 830258910468995235, guid: 0bab1bc05a6e2684c9d1f472485a7370, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4844531506927511194
+--- !u!114 &3024830715104233876
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,6 +96,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f211ab57e7e2c244aea17d317e92730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  real_building: {fileID: 6633672694320901215, guid: 33b7a009a9dbf344ca390e1382dd7ef2, type: 3}
+  real_building: {fileID: 6633672694320901215, guid: 7da02bf714363ad4ebf39a09e409cff9, type: 3}
   placement_obj: {fileID: 0}
   graphicRaycaster: {fileID: 0}

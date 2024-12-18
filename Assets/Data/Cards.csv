@@ -1,7 +1,7 @@
 #,id,cardCode,cardName,maximum_HP,cost_gold,level,spawnInterval,maxEnemies,
 ENEMY_BASE,0,ENEMY_BASE,敌基地,300,0,0,1,2,
 #,id,cardCode,cardName,maximum_HP,cost_gold,level,output_gold,cycle,
-BASE,0,BASE,基地,30,0,0,2,5,
+BASE,0,BASE,基地,300,0,0,2,5,
 #,id,cardCode,cardName,maximum_HP,cost_gold,level,output_gold,cycle,
 Resource_building_Card,2,House,民房,100,2,0,1,5,
 #,id,cardCode,cardName,maximum_HP,cost_gold,level,ATK,cycle,ATK_range
