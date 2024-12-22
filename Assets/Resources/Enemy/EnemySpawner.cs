@@ -18,12 +18,27 @@ public class EnemySpawner : MonoBehaviour
 
     private Coroutine spawnCoroutine_melle;
     private Coroutine spawnCoroutine_ranged;
-
+    public MainMenuController mainMenuController;
+    public GameObject enemy; 
     void Start()
     {
         spawnCoroutine_melle = StartCoroutine(SpawnEnemies_melle());
         spawnCoroutine_ranged = StartCoroutine(SpawnEnemies_ranged());
+        mainMenuController=FindObjectOfType<MainMenuController>();
     }
+
+    void Update()
+    {
+        enemy=GameObject.Find("Enemy(Clone)");
+        if (enemy==null){
+            enemy=GameObject.Find("Enemy_ranged(Clone)");
+            if (enemy==null){
+                mainMenuController.Gamewin();
+            }
+        }
+
+    }
+
 
     IEnumerator SpawnEnemies_melle()
     {

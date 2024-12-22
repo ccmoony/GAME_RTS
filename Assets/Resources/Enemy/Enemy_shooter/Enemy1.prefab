@@ -160,7 +160,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1413953172141077151, guid: 627043952d33327429a0a3112ba97650, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0.004115227
+      value: 0.000914495
       objectReference: {fileID: 0}
     - target: {fileID: 1413953172141077151, guid: 627043952d33327429a0a3112ba97650, type: 3}
       propertyPath: m_SizeDelta.y
@@ -168,7 +168,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1413953172141077153, guid: 627043952d33327429a0a3112ba97650, type: 3}
       propertyPath: m_FillAmount
-      value: 1
+      value: 0.6666667
       objectReference: {fileID: 0}
     - target: {fileID: 1413953172643538390, guid: 627043952d33327429a0a3112ba97650, type: 3}
       propertyPath: m_Pivot.x

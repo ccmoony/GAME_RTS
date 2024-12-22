@@ -16,4 +16,9 @@ public class MainMenuController : MonoBehaviour
         // 切换到Game Over场景
         SceneManager.LoadScene("gameover");
     }
+    public void Gamewin()
+    {
+        // 切换到Game Win场景
+        SceneManager.LoadScene("gamewin");
+    }
 }
