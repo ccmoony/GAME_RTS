@@ -15,23 +15,44 @@ public class Card_manager : MonoBehaviour
         GameObject init_card1=Instantiate(cardPrefab);
         GameObject init_card2=Instantiate(cardPrefab);
         GameObject init_card3=Instantiate(cardPrefab);
+        GameObject init_card4=Instantiate(cardPrefab);
+        GameObject init_card5=Instantiate(cardPrefab);
+        // GameObject init_card6=Instantiate(cardPrefab);
         init_card1.GetComponent<RectTransform>().SetParent(transform);
         init_card2.GetComponent<RectTransform>().SetParent(transform);
         init_card3.GetComponent<RectTransform>().SetParent(transform);
+        init_card4.GetComponent<RectTransform>().SetParent(transform);
+        init_card5.GetComponent<RectTransform>().SetParent(transform);
+        // init_card6.GetComponent<RectTransform>().SetParent(transform);
         init_card1.GetComponent<RectTransform>().anchoredPosition=new Vector2(0,140);
         init_card2.GetComponent<RectTransform>().anchoredPosition=new Vector2(0,74);
         init_card3.GetComponent<RectTransform>().anchoredPosition=new Vector2(0,8);
+        init_card4.GetComponent<RectTransform>().anchoredPosition=new Vector2(0,-58);
+        init_card5.GetComponent<RectTransform>().anchoredPosition=new Vector2(0,-124);
+        // init_card6.GetComponent<RectTransform>().anchoredPosition=new Vector2(0,-190);
 
         init_card1.GetComponent<Card_button>().card_info=GetNewCard();
         init_card2.GetComponent<Card_button>().card_info=GetNewCard();
         init_card3.GetComponent<Card_button>().card_info=GetNewCard();
+        init_card4.GetComponent<Card_button>().card_info=GetNewCard();
+        init_card5.GetComponent<Card_button>().card_info=GetNewCard();
+        // init_card6.GetComponent<Card_button>().card_info=GetNewCard();
+
 
         var button1=init_card1.GetComponent<Card_button>();
         var button2=init_card2.GetComponent<Card_button>();
         var button3=init_card3.GetComponent<Card_button>();
+        var button4=init_card4.GetComponent<Card_button>();
+        var button5=init_card5.GetComponent<Card_button>();
+        // var button6=init_card6.GetComponent<Card_button>();
+
         button1.button_id=1;
         button2.button_id=2;
         button3.button_id=3;
+        button4.button_id=4;
+        button5.button_id=5;
+        // button6.button_id=6;
+
         if (button1.card_info.cardName!="House"&&button2.card_info.cardName!="House"&&button3.card_info.cardName!="House")//防止无民房
         {
             init_card1.GetComponent<Card_button>().card_info=cardList_level_0[0];
