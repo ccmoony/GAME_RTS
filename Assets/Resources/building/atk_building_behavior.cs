@@ -20,8 +20,11 @@ public class ATK_Building_Behavior : MonoBehaviour
     private Transform arrowSpawnPoint;   
     public LayerMask enemyLayer;          
     private float lastAttackTime = -Mathf.Infinity;
+    private float height;
     void Start()
     {
+        var renderer = GetComponent<Renderer>();
+        height = renderer.bounds.size.y;
         manager = FindObjectOfType<building_placement>();
         arrowSpawnPoint = transform;
         health = card_info.maximum_HP;
@@ -83,7 +86,8 @@ public class ATK_Building_Behavior : MonoBehaviour
         {
 
             //Debug.Log("Attacking enemy");
-            GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, Quaternion.identity);
+            Debug.Log("arrowRoation: " + arrowPrefab.transform.rotation);
+            GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position+new Vector3(0,0.7f*height,0), arrowPrefab.transform.rotation);
             Arrow arrowScript = arrow.GetComponent<Arrow>();
             if (arrowScript != null)
             {

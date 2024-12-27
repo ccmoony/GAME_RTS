@@ -22,8 +22,12 @@ public class Enemy_ranged : MonoBehaviour
     public Image healthBarFill;  
     private float healthBarWidth; 
     private float attackCooldown; 
+    private float height;
     void Start()
     {
+        Renderer renderer = GetComponent<Renderer>();
+        height = renderer.bounds.size.y;
+
         manager = FindObjectOfType<building_placement>();
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>(); 
         healthBarWidth = healthBarFill.rectTransform.sizeDelta.x;
@@ -97,7 +101,7 @@ public class Enemy_ranged : MonoBehaviour
             if (arrowPrefab != null && arrowSpawnPoint != null)
             {
 
-                GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, Quaternion.identity);
+                GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position+new Vector3(0,height*0.7f,0), Quaternion.identity);
                 Arrow_enemy arrowScript = arrow.GetComponent<Arrow_enemy>();
                 if (arrowScript != null)
                 {

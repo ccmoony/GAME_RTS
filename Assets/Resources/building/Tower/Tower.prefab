@@ -124,7 +124,7 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   healthBarFill: {fileID: 7818008814385178767}
-  arrowPrefab: {fileID: 1350652690777307465, guid: 6dd96f5636dd64d78acd9ec870f155e6, type: 3}
+  arrowPrefab: {fileID: 8051480535323308861, guid: 4c809b6151c2e6b43b22420162520b5c, type: 3}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
