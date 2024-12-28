@@ -9,7 +9,7 @@ public class MainMenuController : MonoBehaviour
     public void StartGame()
     {
         // 加载SampleScene
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("bg story");
     }
     public void GameOver()
     {
