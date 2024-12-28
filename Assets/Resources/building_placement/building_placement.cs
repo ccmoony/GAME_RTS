@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Palmmedia.ReportGenerator.Core.Reporting.Builders;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -104,6 +103,7 @@ public class building_placement : MonoBehaviour
     [HideInInspector]
     public int x_num;
 
+    public TextAsset mapData;
 
     public GameObject hexPrefab;
     public List<GameObject> treePrefab;
@@ -140,12 +140,7 @@ public class building_placement : MonoBehaviour
         }
         else
         {
-            string filePath=Application.dataPath+"/Data/Levels/level_1.json";
-            if (File.Exists(filePath))
-            {
-                string json=File.ReadAllText(filePath);
-                Load_Terrain(json);
-            }
+            Load_Terrain(mapData.text);
         }
         Load_Hex();
         

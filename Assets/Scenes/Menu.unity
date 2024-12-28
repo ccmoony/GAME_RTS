@@ -798,8 +798,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.500122, y: -42.15}
-  m_SizeDelta: {x: 150.421, y: 75.847}
+  m_AnchoredPosition: {x: -1, y: -42.15}
+  m_SizeDelta: {x: 146.64, y: 56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1331687599
 MonoBehaviour:
@@ -876,7 +876,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -454.7}
+  m_AnchoredPosition: {x: 24.472, y: -323}
   m_SizeDelta: {x: 197.5836, y: 37.0469}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1447642516
@@ -986,7 +986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonText: {fileID: 1247336593}
-  normalColor: {r: 0.9568628, g: 0.64705884, b: 0.21960786, a: 1}
+  normalColor: {r: 1, g: 0.72382236, b: 0.34276712, a: 1}
   highlightColor: {r: 1, g: 0.87783456, b: 0.37421376, a: 1}
   normalFontSize: 24
   enlargedFontSize: 28
