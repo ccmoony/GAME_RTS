@@ -165,7 +165,7 @@ public class Card_manager4editor : MonoBehaviour
             return enemy_base_info;
         }
     }
-    public void Create_New_Card(Vector3 old_position,int button_id)
+    public GameObject Create_New_Card(Vector3 old_position,int button_id)
     {
         
         GameObject new_card=Instantiate(cardPrefab);
@@ -173,5 +173,6 @@ public class Card_manager4editor : MonoBehaviour
         new_card.GetComponent<RectTransform>().SetParent(transform);
         new_card.GetComponent<RectTransform>().position=old_position;
         new_card.GetComponent<Card_button>().card_info=GetNewCard(button_id);
+        return new_card;
     }
 }

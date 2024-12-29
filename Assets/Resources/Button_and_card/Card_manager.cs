@@ -6,6 +6,10 @@ public class Card_manager : MonoBehaviour
 {
     public TextAsset cardData;
     public GameObject cardPrefab;
+    public List<GameObject> buttonList = new();
+
+    private Currency_Manager currency_Manager;
+    
     private List<Card> cardList_level_0 = new();
     private List<Card> cardList_level_1 = new();
     private List<Card> cardList_level_2 = new();
@@ -16,6 +20,13 @@ public class Card_manager : MonoBehaviour
         GameObject init_card3=Instantiate(cardPrefab);
         GameObject init_card4=Instantiate(cardPrefab);
         GameObject init_card5=Instantiate(cardPrefab);
+
+        buttonList.Add(init_card1);
+        buttonList.Add(init_card2);
+        buttonList.Add(init_card3);
+        buttonList.Add(init_card4);
+        buttonList.Add(init_card5);
+
         // GameObject init_card6=Instantiate(cardPrefab);
         init_card1.GetComponent<RectTransform>().SetParent(transform);
         init_card2.GetComponent<RectTransform>().SetParent(transform);
@@ -56,6 +67,7 @@ public class Card_manager : MonoBehaviour
         {
             init_card1.GetComponent<Card_button>().card_info=cardList_level_0[0];
         }
+        currency_Manager=gameObject.GetComponent<Currency_Manager>();
         
     }
 
@@ -218,12 +230,26 @@ public class Card_manager : MonoBehaviour
             }
         }
     }
-    public void Create_New_Card(Vector3 old_position,int button_id)
+    public GameObject Create_New_Card(Vector3 old_position,int button_id)
     {
         
         GameObject new_card=Instantiate(cardPrefab);
         new_card.GetComponent<RectTransform>().SetParent(transform);
         new_card.GetComponent<RectTransform>().position=old_position;
         new_card.GetComponent<Card_button>().card_info=GetNewCard(-1,button_id);
+        new_card.GetComponent<Card_button>().button_id=button_id;
+        return new_card;
+    }
+    public void refresh_All()
+    {
+        if (currency_Manager.Get_money()<1)
+        {
+            return;
+        }
+        for( int i=0;i<=4;i++)
+        {
+            var newCard=buttonList[i].GetComponent<Card_button>().remove_card(false);
+        }
+        currency_Manager.Change_money(-1);
     }
 }

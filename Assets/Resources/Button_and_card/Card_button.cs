@@ -79,11 +79,11 @@ public class Card_button : MonoBehaviour
         if(card_info.cost_gold>currency_Manager.Get_money())//钱不够
         {
             
-            color_mask.color=new Color(66f/255f,66f/255f,66f/255f,225f/255f);
+            GetComponent<UnityEngine.UI.Button>().interactable=false;
         }
         else
         {
-            color_mask.color=new Color(66f/255f,66f/255f,66f/255f,0);
+            GetComponent<UnityEngine.UI.Button>().interactable=true;
         }
     }
     public bool isSelected()
@@ -124,18 +124,28 @@ public class Card_button : MonoBehaviour
         
         
     }
-    public void remove_card()
+    public GameObject remove_card(bool change_Money=true)
     {
+        GameObject new_card=null;
         if(!edit_mode)
         {
-            card_manager.Create_New_Card(gameObject.GetComponent<RectTransform>().position,button_id);
+            new_card=card_manager.Create_New_Card(gameObject.GetComponent<RectTransform>().position,button_id);
+            // Debug.Log("button_id:"+button_id);
+            // Debug.Log("list_len"+(card_manager.buttonList.Count));
+            card_manager.buttonList[button_id-1]=new_card;
         }
         else
         {
-            card_manager4editor.Create_New_Card(gameObject.GetComponent<RectTransform>().position,button_id);
+            new_card=card_manager4editor.Create_New_Card(gameObject.GetComponent<RectTransform>().position,button_id);
         }
-        currency_Manager.Change_money(-card_info.cost_gold);
+        
+
+        if(change_Money)
+        {
+            currency_Manager.Change_money(-card_info.cost_gold);
+        }
 
         Destroy(gameObject);
+        return new_card;
     }
 }
