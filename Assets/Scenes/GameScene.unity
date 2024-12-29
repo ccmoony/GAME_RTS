@@ -2914,12 +2914,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2294341632967116182, guid: c8e3e1e5835e84a6397b276fcaff984f, type: 3}
+      propertyPath: duration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2294341632967116182, guid: c8e3e1e5835e84a6397b276fcaff984f, type: 3}
       propertyPath: roundText
       value: 
       objectReference: {fileID: 1089285935}
     - target: {fileID: 2294341632967116182, guid: c8e3e1e5835e84a6397b276fcaff984f, type: 3}
+      propertyPath: startSize
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2294341632967116182, guid: c8e3e1e5835e84a6397b276fcaff984f, type: 3}
       propertyPath: roundDuration
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2294341632967116182, guid: c8e3e1e5835e84a6397b276fcaff984f, type: 3}
+      propertyPath: displayDuration
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4977318646873438929, guid: c8e3e1e5835e84a6397b276fcaff984f, type: 3}
       propertyPath: m_Name

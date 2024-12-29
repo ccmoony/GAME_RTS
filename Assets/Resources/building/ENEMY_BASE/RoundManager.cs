@@ -10,6 +10,9 @@ public class RoundManager : MonoBehaviour
     public float displayDuration = 2f; 
 
     public float roundDuration = 30.0f;
+    public float duration = 1.0f;
+    public float startSize = 70f;
+    public float endSize = 30f;
 
     void Start()
     {
@@ -18,8 +21,24 @@ public class RoundManager : MonoBehaviour
 
     IEnumerator ShowRoundText()
     {
-        roundText.text = "<color=#BF360C><b><size=30>Enemy arrive in 20s.</size></b></color>";
-        yield return new WaitForSeconds(displayDuration);
+        roundText.text = $"<color=#BF360C><b><size={(int)startSize}>Enemy arrive in 20s.</size></b></color>";
+        float elapsedTime = 0f; 
+
+
+        while (elapsedTime < duration)
+        {
+
+            float newSize = Mathf.Lerp(startSize, endSize, elapsedTime / duration);
+            roundText.text = $"<color=#BF360C><b><size={(int)newSize}>Enemy arrive in 20s.</size></b></color>";
+
+            elapsedTime += Time.deltaTime; 
+            yield return null; 
+        }
+
+        roundText.text = $"<color=#BF360C><b><size={(int)endSize}>Enemy arrive in 20s.</size></b></color>";
+
+        yield return new WaitForSeconds(displayDuration - duration);
+
         if (roundText != null)
         {
             roundText.gameObject.SetActive(false); 
