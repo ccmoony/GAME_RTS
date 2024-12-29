@@ -60,7 +60,7 @@ public class EnemySpawner : MonoBehaviour
                 currentEnemyCount_melle++;
                 yield return new WaitForSeconds(spawnInterval);
             }
-            yield return new WaitForSeconds(roundInterval-maxEnemies*spawnInterval);
+            yield return new WaitForSeconds(1.5f*roundInterval-maxEnemies*spawnInterval);
             currentEnemyCount_melle = 0;
 
             while (currentEnemyCount_melle < maxEnemies)
@@ -71,7 +71,7 @@ public class EnemySpawner : MonoBehaviour
                 yield return new WaitForSeconds(spawnInterval);
             }            
 
-            yield return new WaitForSeconds(roundInterval-maxEnemies*spawnInterval);
+            yield return new WaitForSeconds(1.5f*roundInterval-maxEnemies*spawnInterval);
             SpawnEnemy_boss();
 
             is_enemy=true;
@@ -93,7 +93,7 @@ public class EnemySpawner : MonoBehaviour
                 yield return new WaitForSeconds(spawnInterval);
             }
 
-            yield return new WaitForSeconds(roundInterval);
+            yield return new WaitForSeconds(1.5f*roundInterval-maxEnemies*spawnInterval);
             
             currentEnemyCount_ranged = 0;
             while (currentEnemyCount_ranged < maxEnemies)

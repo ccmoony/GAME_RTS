@@ -42,7 +42,7 @@ public class RoundManager : MonoBehaviour
         }
 
 
-        yield return new WaitForSeconds(roundDuration-displayDuration); 
+        yield return new WaitForSeconds(1.5f*roundDuration-displayDuration); 
 
         
         if (roundText != null)
@@ -58,7 +58,7 @@ public class RoundManager : MonoBehaviour
             roundText.gameObject.SetActive(false); 
         }
 
-        yield return new WaitForSeconds(roundDuration-displayDuration);
+        yield return new WaitForSeconds(1.5f*roundDuration-displayDuration);
 
         if (roundText != null)
         {

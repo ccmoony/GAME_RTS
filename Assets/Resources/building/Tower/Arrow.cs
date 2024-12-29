@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
+    // public ATK_Building_Behavior B;
     public float speed = 10f;        
-    public float damage = 1f;       
+    public float damage;       
     private Transform target;        
 
-    public void SetTarget(Transform enemy)
+    // void Start()
+    // {
+    //     damage = card_info.ATK;
+    // }
+
+
+    public void SetTarget(Transform enemy, float ATKdamage)
     {
         target = enemy;
+        damage = ATKdamage;
     }
 
     void Update()

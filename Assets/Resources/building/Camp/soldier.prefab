@@ -136,7 +136,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 0
-  m_StoppingDistance: 5
+  m_StoppingDistance: 3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -156,11 +156,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06c57328dfa136a4896959b6763fee96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 40
-  maxHealth: 40
-  attackDamage: 1
+  health: 15
+  maxHealth: 15
+  attackDamage: 3
   attackInterval: 1
-  attackRange: 7
+  attackRange: 3
   healthBarFill: {fileID: 7678112206088472640}
 --- !u!1 &3715561810618253468
 GameObject:

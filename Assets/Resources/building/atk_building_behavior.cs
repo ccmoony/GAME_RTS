@@ -21,6 +21,8 @@ public class ATK_Building_Behavior : MonoBehaviour
     public LayerMask enemyLayer;          
     private float lastAttackTime = -Mathf.Infinity;
     private float height;
+
+    private float attackDamage;
     void Start()
     {
         var renderer = GetComponent<Renderer>();
@@ -28,6 +30,8 @@ public class ATK_Building_Behavior : MonoBehaviour
         manager = FindObjectOfType<building_placement>();
         arrowSpawnPoint = transform;
         health = card_info.maximum_HP;
+
+        attackDamage = card_info.ATK;
 
         maxHealth = card_info.maximum_HP;
         healthBarWidth = healthBarFill.rectTransform.sizeDelta.x;
@@ -91,7 +95,7 @@ public class ATK_Building_Behavior : MonoBehaviour
             Arrow arrowScript = arrow.GetComponent<Arrow>();
             if (arrowScript != null)
             {
-                arrowScript.SetTarget(enemy); 
+                arrowScript.SetTarget(enemy, attackDamage); 
             }
         }
     }

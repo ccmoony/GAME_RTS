@@ -144,11 +144,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e8a0f13322784122b3b79dea13769c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 3
+  health: 30
+  maxHealth: 30
   attackDamage: 1
   attackInterval: 1
-  attackRange: 10
+  attackRange: 8
   target: {fileID: 0}
   arrowPrefab: {fileID: 3624596357954554176, guid: 43642c59e4c8e714683899bcac2e2cfb, type: 3}
   healthBarFill: {fileID: 7786269003673567601}
