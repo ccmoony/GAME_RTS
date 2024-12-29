@@ -97,11 +97,11 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy_melle()
     {
-        Instantiate(enemyPrefab_melle, transform.position-new Vector3(0f,0.2f,0f), Quaternion.identity);
+        Instantiate(enemyPrefab_melle, transform.position-new Vector3(0f,0.2f,0f), enemyPrefab_melle.transform.rotation);
     }
 
     void SpawnEnemy_ranged()
     {
-        Instantiate(enemyPrefab_ranged, transform.position-new Vector3(0f,0.2f,0f), Quaternion.identity);
+        Instantiate(enemyPrefab_ranged, transform.position-new Vector3(0f,0.2f,0f), enemyPrefab_ranged.transform.rotation);
     }
 }

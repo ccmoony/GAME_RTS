@@ -106,3 +106,5 @@ MonoBehaviour:
   spawnInterval: 3
   maxEnemies: 10
   roundInterval: 5
+  mainMenuController: {fileID: 0}
+  enemy: {fileID: 0}
