@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roundText: {fileID: 0}
   displayDuration: 2
-  roundDuration: 5
+  roundDuration: 30

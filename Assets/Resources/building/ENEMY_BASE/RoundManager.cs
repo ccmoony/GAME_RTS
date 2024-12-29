@@ -9,7 +9,7 @@ public class RoundManager : MonoBehaviour
 
     public float displayDuration = 2f; 
 
-    public float roundDuration = 5f;
+    public float roundDuration = 30.0f;
 
     void Start()
     {
@@ -42,7 +42,7 @@ public class RoundManager : MonoBehaviour
         }
 
 
-        yield return new WaitForSeconds(roundDuration); 
+        yield return new WaitForSeconds(roundDuration-displayDuration); 
 
         
         if (roundText != null)
@@ -53,6 +53,21 @@ public class RoundManager : MonoBehaviour
 
         yield return new WaitForSeconds(displayDuration); 
 
+        if (roundText != null)
+        {
+            roundText.gameObject.SetActive(false); 
+        }
+
+        yield return new WaitForSeconds(roundDuration-displayDuration);
+
+        if (roundText != null)
+        {
+            roundText.text = "Round 3";
+            roundText.gameObject.SetActive(true); 
+        }
+
+        yield return new WaitForSeconds(displayDuration);
+        
         if (roundText != null)
         {
             roundText.gameObject.SetActive(false); 
