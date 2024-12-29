@@ -8,9 +8,9 @@ public class EnemySpawner : MonoBehaviour
 
     public GameObject enemyPrefab_ranged; 
     public float spawnInterval = 1.0f; 
-    public int maxEnemies = 2; 
+    public int maxEnemies = 5; 
 
-    public float roundInterval = 5.0f;
+    public float roundInterval = 20.0f;
 
     private int currentEnemyCount_melle = 0; 
 
@@ -20,6 +20,8 @@ public class EnemySpawner : MonoBehaviour
     private Coroutine spawnCoroutine_ranged;
     public MainMenuController mainMenuController;
     public GameObject enemy; 
+
+    private bool is_enemy=false;
     void Start()
     {
         spawnCoroutine_melle = StartCoroutine(SpawnEnemies_melle());
@@ -30,10 +32,12 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         enemy=GameObject.Find("Enemy(Clone)");
-        if (enemy==null){
-            enemy=GameObject.Find("Enemy_ranged(Clone)");
+        if (is_enemy){
             if (enemy==null){
-                mainMenuController.Gamewin();
+                enemy=GameObject.Find("Enemy_ranged(Clone)");
+                if (enemy==null){
+                    mainMenuController.Gamewin();
+                }
             }
         }
 
@@ -44,12 +48,12 @@ public class EnemySpawner : MonoBehaviour
     {
         currentEnemyCount_melle = 0;
         if (startSpawn)
-        {
+        {   
+            yield return new WaitForSeconds(roundInterval);
             while (currentEnemyCount_melle < maxEnemies)
             {
                 SpawnEnemy_melle();
                 currentEnemyCount_melle++;
-
                 yield return new WaitForSeconds(spawnInterval);
             }
             yield return new WaitForSeconds(roundInterval);
@@ -62,7 +66,7 @@ public class EnemySpawner : MonoBehaviour
 
                 yield return new WaitForSeconds(spawnInterval);
             }            
-
+            is_enemy=true;
             spawnCoroutine_melle = null;
         }
     }
@@ -72,11 +76,11 @@ public class EnemySpawner : MonoBehaviour
         currentEnemyCount_ranged = 0;
         if (startSpawn)
         {
+            yield return new WaitForSeconds(roundInterval);
             while (currentEnemyCount_ranged < maxEnemies)
             {
                 SpawnEnemy_ranged();
                 currentEnemyCount_ranged++;
-
                 yield return new WaitForSeconds(spawnInterval);
             }
 
@@ -85,12 +89,12 @@ public class EnemySpawner : MonoBehaviour
             currentEnemyCount_ranged = 0;
             while (currentEnemyCount_ranged < maxEnemies)
             {
-                SpawnEnemy_melle();
+                SpawnEnemy_ranged();
                 currentEnemyCount_ranged++;
 
                 yield return new WaitForSeconds(spawnInterval);
             }      
-
+            is_enemy=true;
             spawnCoroutine_ranged = null;
         }
     }

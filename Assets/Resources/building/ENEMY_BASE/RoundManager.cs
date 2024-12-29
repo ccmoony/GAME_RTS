@@ -18,6 +18,16 @@ public class RoundManager : MonoBehaviour
 
     IEnumerator ShowRoundText()
     {
+        roundText.text = "<color=#BF360C><b><size=30>Enemy arrive in 20s.</size></b></color>";
+        yield return new WaitForSeconds(displayDuration);
+        if (roundText != null)
+        {
+            roundText.gameObject.SetActive(false); 
+        }
+
+
+        yield return new WaitForSeconds(roundDuration-displayDuration); 
+
         if (roundText != null)
         {
             roundText.text = "Round 1"; 
@@ -31,8 +41,10 @@ public class RoundManager : MonoBehaviour
             roundText.gameObject.SetActive(false); 
         }
 
+
         yield return new WaitForSeconds(roundDuration); 
 
+        
         if (roundText != null)
         {
             roundText.text = "Round 2";

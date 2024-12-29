@@ -104,7 +104,7 @@ MonoBehaviour:
   enemyPrefab_melle: {fileID: 5258092802708488690, guid: c26c5dd1800f16d4982b67a9c10586ad, type: 3}
   enemyPrefab_ranged: {fileID: 983664875381235298, guid: 249a28876ae633743a0c638c07dda86c, type: 3}
   spawnInterval: 3
-  maxEnemies: 10
-  roundInterval: 5
+  maxEnemies: 5
+  roundInterval: 20
   mainMenuController: {fileID: 0}
   enemy: {fileID: 0}

@@ -266,7 +266,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8d320c8ef59c44d41aefa5b84114c230, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4c822714d91257645ae6fbf5ad981e6c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -923,7 +923,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 329989655}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: Replay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

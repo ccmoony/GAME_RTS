@@ -149,7 +149,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8d320c8ef59c44d41aefa5b84114c230, type: 3}
+  m_audioClip: {fileID: 8300000, guid: fc0dc808c9f4d3f42aa9477d79aa3d82, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -401,8 +401,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 200}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 4.7001, y: 155.133}
+  m_SizeDelta: {x: 100.7833, y: 122.4335}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &482319935
 MonoBehaviour:
@@ -923,7 +923,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 329989655}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: Replay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

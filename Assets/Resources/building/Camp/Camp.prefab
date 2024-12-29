@@ -1916,7 +1916,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soldierPrefab: {fileID: 1861364405042477595, guid: 1fef19d6f0bd0fc4081bb99653123a3a, type: 3}
-  spawnInterval: 5
+  spawnInterval: 10
   maxSoldiers: 10
   health: 0
   maxHealth: 0

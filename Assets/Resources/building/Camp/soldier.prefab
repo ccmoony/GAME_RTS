@@ -156,11 +156,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06c57328dfa136a4896959b6763fee96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
-  maxHealth: 20
+  health: 40
+  maxHealth: 40
   attackDamage: 1
   attackInterval: 1
-  attackRange: 5
+  attackRange: 7
   healthBarFill: {fileID: 7678112206088472640}
 --- !u!1 &3715561810618253468
 GameObject:
