@@ -12,5 +12,3 @@
 - Better utilization of terrain and richer terrain variety
 - Aesthetic improvements and UI optimization
 
-
-https://github.com/ccmoony/GAME_RTS/demo.mp4
