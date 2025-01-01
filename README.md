@@ -1,4 +1,5 @@
 # Siege of Honors ![Static Badge](https://img.shields.io/badge/Unity-RTS-blue)
+This project is built on **Unity 2022.3.44f1c1**
 ## 🎮 Demo
 ![demo](./demo.gif)
 ## 📚 Background story
